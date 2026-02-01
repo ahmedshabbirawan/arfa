@@ -1,0 +1,173 @@
+@extends('layout.master')
+
+@section('title')
+    Sale
+@endsection
+
+@section('content')
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+        <div class="row ">
+            <div class="col-12 col-lg-12" style="margin-top:20px;">
+                <div class="card">
+                    <div class="card-header pt-1 mt-1">
+                        <div class="d-flex flex-wrap gap-1">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">Sales Return List</h6>
+                                <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="{{ route('sale.order.unkonw_sale_return_view') }}" class="btn btn-sm btn-primary bigger"><i
+                                        class="ace-icon fa fa-undo bigger-120"></i> Unknow Return Sale </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        @include('layout.alerts')
+                        <div class="table-responsive">
+                            <table class="table table-sm" id="yajra-table"
+                                   style="width:100%"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end row-->
+    </div></div>
+
+
+
+    <!--- delete confirmation modal --->
+    <div class="modal" tabindex="-1" role="dialog" id="deletePopup">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+
+                <form action="#" method="post" id="delete_form">
+                    <input type="hidden" name="_method" value="delete"/>
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you really want to delete ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!--- delete confirmation modal end --->
+    <div id="order_back_search_modal_con"></div>
+@endsection
+
+
+
+
+@section('script')
+    <script>
+        var table;
+        var selectID;
+
+
+        function deleteConfirmation(saleKey) {
+            selectID = saleKey;
+            $.confirm({
+                title: 'Confirmation',
+                content: 'Do you really want to delete ?',
+                buttons: {
+                    yes: {
+                        text: 'Yes',
+                        action: function () {
+                            $.ajax({
+                                type: 'GET',
+                                dataType: "JSON",
+
+                                url: "{{ url('sale/board/delete/board_item') }}/" + selectID,
+                                success: function (res, textStatus, jqXHR) {
+
+                                    if (jqXHR.status == 200) {
+                                        table.ajax.reload();
+                                    }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    // console.log(textStatus,jqXHR, errorThrown);
+                                    if (jqXHR.status != 200) {
+                                        if (typeof jqXHR.responseJSON !== 'undefined') {
+                                            $.confirm({
+                                                title: 'Error',
+                                                content: jqXHR.responseJSON.message
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    no: {
+                        text: 'No', // With spaces and symbols
+                        action: function () {
+
+                        }
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                table = $('#yajra-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('sale.sale_return.list') }}?group_by=issue_key",
+                    columns: [
+                        {
+                            data: 'id',
+                            name: 'id',
+                            title: 'ID.',
+                            width: '5%'
+                        }, {
+                            data: 'customer_name',
+                            name: 'customer_name',
+                            title: 'Customer'
+                        },
+                        {
+                            data: 'item_count',
+                            name: 'item_count',
+                            title: 'Items',
+                        },
+                        {
+                            data: 'description',
+                            name: 'description',
+                            title: 'Description'
+                        }, {
+                            data: 'order_time',
+                            name: 'order_time',
+                            title: 'Date N Time',
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            title: 'Action'
+                        }
+                    ],
+                    order: [[0, 'desc']]
+                });
+
+            }, 500);
+
+
+        });
+    </script>
+@endsection
