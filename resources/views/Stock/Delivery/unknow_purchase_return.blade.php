@@ -1,13 +1,9 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 @section('title')
     Unknow Purchase Return
 @endsection
-
 @section('content')
-
     <script>
-
         var productHTML = '<option value="">Select Product</option><?php foreach ($products as $pro) {
             echo '<option value="' . $pro->id . '" data-qty="' . optional($pro->productQtyShopWise)->qty . '" >' . $pro->name . '</option>';
         } ?>';
@@ -15,24 +11,30 @@
         var shopHTML = '<?php foreach ($shops as $shop) {
             echo '<option value="' . $shop->id . '" >' . $shop->name . '</option>';
         } ?>';
-
-
     </script>
-
     <style>.heading-item td {
             font-weight: bold;
         } </style>
-    <div class="page-content">
-        <div class="page-header">
-            <h1>
-                Unknow Purchase Return
-            </h1>
-        </div><!-- /.page-header -->
+    <div class="pc-container">
+        <div class="pc-content p-3 ">
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-                <div class="widget-box">
-                    <div class="widget-header widget-header-blue widget-header-flat">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="d-flex flex-wrap gap-1">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">Unknow Purchase Return</h6>
+                                <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                .
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-header">
                         <h4 class="widget-title lighter">Purchase ID : Unknow<b></b></h4>
 
                         <div class="widget-toolbar">
@@ -43,7 +45,7 @@
                     </div>
 
 
-                    <div class="widget-body">
+                    <div class="card-body">
                         <div class="widget-main">
                             <form method="post" id="return_form"
                                   action="{{  route('stocks.unknow_purchase_return_save')  }}" novalidate
@@ -119,6 +121,7 @@
 
             </div><!-- /.col -->
         </div><!-- /.row -->
+    </div>
     </div>
 @endsection
 @section('script')

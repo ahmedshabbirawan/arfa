@@ -33,12 +33,12 @@ class SimpleStockDeliveryController extends Controller{
 
 
     function index(Request $request){
-       
+
         $productID = $request->get('product_id');
         if($request->ajax()){
             $results =  StockDelivery::with(['Supplier'])->select();
             if($productID != ''){
-                $results =  $results->whereRelation('deliveryProduct', 'product_id',$productID); 
+                $results =  $results->whereRelation('deliveryProduct', 'product_id',$productID);
             }
             return Datatables::of($results)
             ->addColumn('info_no', function ($row) {
@@ -80,7 +80,6 @@ class SimpleStockDeliveryController extends Controller{
         return view('Stock.Delivery.lists');
     }
 
-
     public function create(){
         $data['warehouses']     = Warehouse::all()->pluck('name');
         $data['projects']       = [];
@@ -92,15 +91,11 @@ class SimpleStockDeliveryController extends Controller{
         return view('Stock.Delivery.simple_create',$data);
     }
 
-
-  
-
-
     function save(StockDeliveryFormRequest $request){
-    
-        $data = $request->only(['rec_by_name', 'rec_by_designation', 'rec_by_cnic', 'rec_by_phone', 
+
+        $data = $request->only(['rec_by_name', 'rec_by_designation', 'rec_by_cnic', 'rec_by_phone',
         'hand_name', 'hand_designation','hand_cnic', 'hand_phone',
-        'purchased_date', 'project_id', 'project_dg', 
+        'purchased_date', 'project_id', 'project_dg',
         'po_loa_loi','amount_category','delivery_amount','supplier_id','delivery_challan_no','warehouse_id',
         'stock_ledger_reference'
         ]);
@@ -111,8 +106,8 @@ class SimpleStockDeliveryController extends Controller{
 
         $userID             = auth()->user()->id;
         $projectID          = 1; // $data['project_id'];
-                
-        $whereArr           = array('status' => 0, 'created_by' => $userID); 
+
+        $whereArr           = array('status' => 0, 'created_by' => $userID);
         $deliveryProducts   = StockDeliveryProduct::where($whereArr)->get();
 
         if( count($deliveryProducts)  == 0 ){
@@ -159,7 +154,7 @@ class SimpleStockDeliveryController extends Controller{
                 /*
                 $productAvailable = ProductAvailable::where($proAvail)->first();
                 $qtyWhenAdjust = 0;
-                $newQty = 0; 
+                $newQty = 0;
                 if(isset($productAvailable->product_id)){
                     $newQty = $productAvailable->qty + $qty;
                     $productAvailable->qty      = $newQty;
@@ -184,7 +179,7 @@ class SimpleStockDeliveryController extends Controller{
     }
 
 
-   
+
 
 
     function uploadDeliveryDocuments(Request $request){
@@ -305,5 +300,5 @@ class SimpleStockDeliveryController extends Controller{
     }
 
 
-    
+
 }

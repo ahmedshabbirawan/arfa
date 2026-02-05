@@ -1,4 +1,4 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Add Purchase
@@ -54,18 +54,20 @@
     $uomID = '';
     $qty = '';
     ?>
-    <div class="page-content">
-        <div class="space-6"></div>
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="widget-box transparent">
-                    <div class="widget-header widget-header-large">
-                        <h3 class="widget-title grey lighter">
-                            <i class="ace-icon fa fa-leaf green"></i>
-                            Add Purchase
-                        </h3>
+    <div class="pc-container">
+        <div class="pc-content">
+            <form method="post" id="product_form" action="" novalidate class="form-horizontal product_form">
+                @csrf
+                <input type="hidden" name="id" value="">
+                <div class="card">
 
-                        <div class="widget-toolbar no-border invoice-info">
+                    <div class="card-header">
+                    <div class="d-flex flex-wrap gap-1">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">Add Purchase</h6>
+                            <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                        </div>
+                        <div class="flex-shrink-0">
                             <span class="invoice-info-label">Time:</span>
                             <span class="red">{{ date('h:i a') }}</span>
 
@@ -73,164 +75,120 @@
                             <span class="invoice-info-label">Date:</span>
                             <span class="blue">{{ date('d-m-Y',time()) }}</span>
                         </div>
-
-                        <div class="widget-toolbar hidden-480">
-                            <!-- <a href="#">
-                                <i class="ace-icon fa fa-print"></i>
-                              </a> -->
-                        </div>
+                    </div>
                     </div>
 
+                    <div class="card-header">
+                        <h6 class="mb-1">Bill Info</h6>
+                            <div class="row">
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="widget-box">
-                                <div class="widget-header widget-header-small">
-                                    <strong>
-                                        Add Items
-                                    </strong>
+                                <div class="col-lg-3 col-sm-12">
+                                    <label for="supplier_id">Supplier</label>
+                                    <select name="supplier_id" id="supplier_id" class="col-lg-12 col-sm-12 form-control form-control-sm" required>
+                                        <option value=""> -- Select --</option>
+                                        <?php foreach ($suppliers as $key => $val) : ?>
+                                        <option value="<?= $key ?>"><?= $val ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
 
-                                <div class="widget-footer"></div>
-                            </div>
-                        </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <label>Purchase Date</label>
+                                    <div class="input-group">
+                                        <input type="text" required class="col-sm-12 input_date form-control form-control-sm"
+                                               value="{{ $purchase_date }}" data-date-format="dd-mm-yyyy"
+                                               name="purchased_date" id="purchased_date"
+                                               placeholder="Purchase Date">
+                                    </div>
+                                </div>
 
+                                <div class="col-lg-3 col-sm-12">
+                                    <label for="delivery_challan_no">Delivery Challan / Invoice No</label>
+                                    <input type="text" required class="form-control form-control-sm col-sm-12" value=""
+                                           name="delivery_challan_no" id="delivery_challan_no"
+                                           placeholder="Challan/Invoice No">
+                                </div>
+
+                                <div class="col-lg-3 col-sm-12">
+                                    <label for="delivery_amount">Delivery Amount</label>
+                                    <input type="text" required class="form-control form-control-sm col-sm-12 form-control"
+                                           value="{{ $amount_delivery }}" name="delivery_amount"
+                                           id="delivery_amount" placeholder="Delivery Amount">
+                                </div>
+                            </div>
                     </div>
 
+                    <div class="card-header">
+                            <input type="hidden" name="id" value="">
+                            <div class="widget-main">
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-3 mb-1">
+                                        <label class="form-label" for="product_select2"> Search Product  </label>
+                                        <div class="my-1 input-group input-group-sm mb-0 ">
+                                            <div class="input-group-text" onclick="pos_app.showAddProductModal();"><i class="ti ti-plus"></i></div>
+                                            <select class="form-control-sm" style="width: calc(100% - 40px);" name="product_id" id="product_id"></select>
+                                        </div>
+                                    </div>
 
-                    <form method="post" id="product_form" action="" novalidate class="form-horizontal product_form">
-                        @csrf
-                        <input type="hidden" name="id" value="">
-                        <div class="widget-body">
-                            <div class="widget-main padding-10">
-                                <div>
-                                    <div class="row">
+                                    <div class="col-lg-4 col-sm-3 mb-1">
+                                        <label class="form-label" for="form-field-1"> Shop : </label>
+                                        <div class="my-1 input-group input-group-sm mb-0 ">
+                                            <select name="shop_id" id="shop_id"
+                                                    class="form-control form-control-sm select21" required >
 
-                                        <div class="col-lg-3 col-sm-12">
-                                            <label for="supplier_id">Supplier</label>
-                                            <select name="supplier_id" id="supplier_id"
-                                                    class="col-lg-12 col-sm-12 chosen_select form-control" required>
-                                                <option value=""> -- Select --</option>
-                                                <?php foreach ($suppliers as $key => $val) : ?>
-                                                <option value="<?= $key ?>"><?= $val ?></option>
+                                                <?php foreach ($shops as $id => $name) : ?>
+                                                <option value="<?= $id ?>"><?= $name ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-
-                                        <div class="col-lg-3 col-sm-12">
-                                            <label>Purchase Date</label>
-                                            <div class="input-group">
-                                                <input type="text" required class="input-sm col-sm-12 input_date"
-                                                       value="{{ $purchase_date }}" data-date-format="dd-mm-yyyy"
-                                                       name="purchased_date" id="purchased_date"
-                                                       placeholder="Purchase Date">
-                                                <span class="input-group-addon">
-                        <i class="fa fa-calendar bigger-110"></i>
-                      </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-3 col-sm-12">
-                                            <label for="delivery_challan_no">Delivery Challan / Invoice No</label>
-                                            <input type="text" required class="input-sm col-sm-12" value=""
-                                                   name="delivery_challan_no" id="delivery_challan_no"
-                                                   placeholder="Challan/Invoice No">
-                                        </div>
-
-                                        <div class="col-lg-3 col-sm-12">
-                                            <label for="delivery_amount">Delivery Amount</label>
-                                            <input type="text" required class="input-sm col-sm-12 form-control"
-                                                   value="{{ $amount_delivery }}" name="delivery_amount"
-                                                   id="delivery_amount" placeholder="Delivery Amount">
-                                        </div>
                                     </div>
-                                    <div class="space"></div>
-                                </div>
-                                <div class="space-6"></div>
-                                <div class="hr hr8 hr-double hr-dotted"></div>
-                                <div class="widget-header widget-header-small">
-                                    <h4 class="widget-title blue smaller">Purchase Product(s)</h4>
-                                </div>
-                                <div class="widget-body">
-                                    <input type="hidden" name="id" value="">
-                                    <div class="widget-main">
-                                        <div class="row">
 
-                                            <div class="col-lg-10" id="product_attribute"></div>
-                                            <div class="col-lg-2 ">
-                                                <label class="" for="form-field-1">&nbsp;</label>
-                                                <div>
-                                                    <button type="button" class="btn btn-success btn-next"
-                                                            onclick="pos_app.showAddProductModal();"><i
-                                                            class="ace-icon fa fa-plus -right icon-on-right"></i>
-                                                        <span class="product_add_text">Add New Product</span></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="col-lg-3 col-sm-3">
-                                                <label class="" for="form-field-1"> Shop : </label>
-                                                <div>
-                                                    <select name="shop_id" id="shop_id"
-                                                            class="chosen-select form-control select21" required
-                                                            style="width:100%">
-                                                        <option value=""> -- Select --</option>
-                                                        <?php foreach ($shops as $id => $name) : ?>
-                                                        <option value="<?= $id ?>"><?= $name ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3 col-sm-12">
-                                                <label class="" for="form-field-1"> Purchase Price </label>
-                                                <div>
-                                                    <input type="text" required class="form-control stock_item_input"
-                                                           value="" name="unit_price" id="unit_price"
-                                                           placeholder="Unit Price">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3 col-sm-3"><label class="" for="form-field-1"> Quantity
-                                                    &nbsp; &nbsp; &nbsp; <span style="color: #ba4444;">Current Quantity : <b
-                                                            id="current_qty"> -- </b></span> </label>
-                                                <div><input type="text" required class="form-control stock_item_input"
-                                                            value="" name="qty" id="qty" placeholder="Quantity"></div>
-                                            </div>
-
-                                            <div class="col-lg-3 col-sm-3">
-                                                <label class="" for="form-field-1"> UOM : </label>
-                                                <div>
-                                                    <input type="hidden" required class="form-control stock_item_input"
-                                                           value="" readonly="on" name="uom_id" id="uom_id"
-                                                           placeholder="UOM">
-                                                    <input type="text" required class="form-control stock_item_input"
-                                                           value="" readonly="on" name="uom_code" id="uom_code"
-                                                           placeholder="UOM">
-                                                </div>
-                                            </div>
+                                    <div class="col-lg-4 col-sm-12">
+                                        <label class="" for="form-field-1"> Purchase Price </label>
+                                        <div>
+                                            <input type="text" required class="form-control form-control-sm stock_item_input"
+                                                   value="" name="unit_price" id="unit_price"
+                                                   placeholder="Unit Price">
                                         </div>
                                     </div>
 
-                                    <!------>
-                                    <div class="modal-footer" style="margin: 15px 0px;">
-                                        <button type="button" class="btn btn-primary btn-block" id="add-item-purchase"
-                                                onclick="saveProduct();">Add item to purchase
-                                        </button>
+                                    <div class="col-lg-4 col-sm-3"><label class="" for="form-field-1"> Quantity
+                                           <span style="color: #ba4444;">Current Quantity : <b id="current_qty"> -- </b></span> </label>
+                                        <div><input type="text" required class="form-control form-control-sm stock_item_input"
+                                                    value="" name="qty" id="qty" placeholder="Quantity"></div>
                                     </div>
-                                    <!----->
 
+                                    <div class="col-lg-4 col-sm-1">
+                                        <label class="" for="form-field-1"> UOM : </label>
+                                        <div>
+                                            <input type="hidden" required class="form-control stock_item_input"
+                                                   value="" readonly="on" name="uom_id" id="uom_id"
+                                                   placeholder="UOM">
+                                            <input type="text" required class="form-control form-control-sm stock_item_input"
+                                                   value="" readonly="on" name="uom_code" id="uom_code"
+                                                   placeholder="UOM">
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                    </div>
 
+                    <div class="card-header pt-2 pb-2 d-grid gap-2 mt-2 " >
+                        <button type="button" class="btn btn-primary btn-block" id="add-item-purchase" onclick="saveProduct();">
+                            <i class="ti ti-arrow-down me-1"></i>
+                            Add item to purchase </button>
+                    </div>
 
+                    <div class="card-body">
+                            <h6 class="mb-1">Purchase Product(s)</h6>
+                            <div class="widget-main padding-10">
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12 product_list_table">
-                                        <table class="table table-striped table-bordered table-responsive">
+                                        <table class="table table-sm table-striped table-bordered table-responsive">
                                             <thead>
                                             <tr>
                                                 <th class="center">#</th>
-                                                <th>Category</th>
+
                                                 <th>Product</th>
                                                 <th>Description</th>
                                                 <th>Qty</th>
@@ -335,14 +293,13 @@
 
                             </div>
                         </div>
-                    </form>
 
                 </div>
+
+            </form>
             </div>
         </div>
 
-
-    </div>
 
 @endsection
 @section('script')
@@ -370,35 +327,25 @@
 
         jQuery(function ($) {
 
-            $('.chosen_select').chosen({
-                allow_single_deselect: true
+            $('#product_id').select2({
+                // placeholder: "Search Product",
+                ajax: {
+                    url: "{{ route('sale.cart.search_product') }}",
+                    dataType: 'json',
+                }
+            }).on('select2:select', function (e) {
+                var obj = e.params.data;
+                console.log(obj.product_id, '1', 'add');
             });
 
-            $('#file_1, #file_2, #file_3, #file_4').ace_file_input({
-                no_file: 'No File ...',
-                btn_choose: 'Choose',
-                btn_change: 'Change',
-                droppable: false,
-                onchange: null,
-                thumbnail: false //| true | large
-                //whitelist:'gif|png|jpg|jpeg'
-                //blacklist:'exe|php'
-                //onchange:''
-                //
-            });
-            //pre-show a file name, for example a previously selected file
-            //$('#id-input-file-1').ace_file_input('show_file_list', ['myfile.txt'])
-            //datepicker plugin
-            //link
+            /*
             $('.date-picker').datepicker({
                 autoclose: true,
                 todayHighlight: true
-            })
-                //show datepicker when clicking on the icon
-                .next().on(ace.click_event, function () {
+            }).next().on(ace.click_event, function () {
                 $(this).prev().focus();
             });
-
+*/
         });
 
 
@@ -539,13 +486,12 @@
                 type: 'get',
                 url: "{{ route('stocks.dp.list') }}",
                 success: function (res) {
-                    // product_list
                     var html = '';
                     var sr = 1;
                     if (res.data.length > 0) {
                         $(res.data).each(function (index, ele) { // product_category_name
                             console.log(ele);
-                            html += '<tr><td>' + (sr) + '</td><td>' + ele.product_category_name + '</td><td>' + ele.product_name + '</td><td>' + ele.product_description + '</td><td>' + ele.quantity + ' (' + ele.uom_code + ') </td><td>' + ele.unit_price + '</td><td>' + ele.total_price + '</td><td>' + ele.action + '</td></tr>';
+                            html += '<tr><td>' + (sr) + '</td><td>' + ele.product_name + '</td><td>' + ele.product_description + '</td><td>' + ele.quantity + ' (' + ele.uom_code + ') </td><td>' + ele.unit_price + '</td><td>' + ele.total_price + '</td><td>' + ele.action + '</td></tr>';
                             sr++;
                         });
                         $('#product_list').html(html);
@@ -598,231 +544,18 @@
         }
 
 
-        function readSNFile() {
-            console.log('i am readSNFile');
-            let myform = document.getElementById("stock_item_form");
-            let fdata = new FormData(myform);
-            // var errorCount =  formValidator.checkAll();
-            $.ajax({
-                data: fdata,
-                cache: false,
-                contentType: false,
-                processData: false,
-                async: false,
-                type: 'POST',
-                dataType: "JSON",
-                type: 'POST',
-                dataType: "JSON",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "{{ route('stocks.dp.read_sn_file') }}",
-                success: function (res, textStatus, jqXHR) {
-                    // console.log(res);
-                    $('#input_zone').tagging("add", res);
-
-                },
-                error: ajaxFailBlock
-            });
-        }
-
-
-        function showModal_CreateProduct() {
-            $('#CreateProduct').modal('show');
-
-
-            $('#input_zone').tagging();
-            $('#is_expiry_date').change(function () {
-                if ($(this).is(':checked')) {
-                    $('#warranty_date').removeAttr('disabled');
-                } else {
-                    $('#warranty_date').val('');
-                    $('#warranty_date').attr('disabled', 'on');
-                }
-
-            });
-
-            $('#is_serial_require').change(function () {
-                if ($(this).is(':checked')) {
-                    $('#serial_number_div').toggle(300);
-                } else {
-                    $('#serial_number_div').toggle(300);
-                }
-            });
-
-            $('.select21').chosen({
-                allow_single_deselect: true
-            });
-
-            setTimeout(function () {
-                $('.chosen-container').css('width', '100%');
-            }, 200);
-
-            $('#serial_number_file').ace_file_input({
-                no_file: 'No File ...',
-                btn_choose: 'Choose',
-                btn_change: 'Change',
-                droppable: false,
-                onchange: null,
-                thumbnail: false //| true | large
-            });
-
-            return false;
-
-
-            // $.ajax({
-            //   // dataType: 'json',
-            //   type: 'get',
-            //   url: "{{ route('stocks.dp.create') }}",
-            //   success: function(res) {
-            //      $('#input_zone').tagging();
-            //      $('#is_expiry_date').change(function(){
-            //         if($(this).is(':checked')){
-            //             $('#warranty_date').removeAttr('disabled');
-            //         }else{
-            //           $('#warranty_date').val('');
-            //           $('#warranty_date').attr('disabled','on');
-            //         }
-            //     });
-            //   }
-            // });
-
-
-        }
 
 
         /*****************************************        Category work        *******************************************************************/
-        function getCategories() {
-            var parentCat = $('#parent_category_id').val();
-            if (parentCat == '') {
-                $('#sub_country_id').html('<option value=""> -- Select -- </option>');
-                return false;
-            }
-            $.ajax({
-                // dataType: 'json',
-                type: 'get',
-                url: "{{ route('product.ajax_sub_cat') }}?parent_id=" + parentCat + "&selected_id=<?= $subCategoryID ?>",
-                success: function (res) {
-                    $('#sub_category_id').html(res);
-                    // var province_id = $('#province_id').val();
-                    getProductCategories();
-                    $('.select21').chosen({
-                        allow_single_deselect: true
-                    });
-                }
-            });
-        }
 
 
-        function getProductCategories() {
-            // $('.select2').select2({allowClear:true});
-            var subCategory = $('#sub_category_id').val();
-            if (subCategory == '') {
-                // $('#sub_country_id').html('<option value=""> -- Select -- </option>');
-                return false;
-            }
-            $.ajax({
-                // dataType: 'json',
-                type: 'get',
-                url: "{{ route('product.ajax_product_cat') }}?sub_cat_id=" + subCategory + '&selected_id=<?= $productCategoryID ?>',
-                success: function (res) {
-
-                    // console.log('hello');
-
-                    $('#product_category_id').val('');
-                    $('#product_category_id').html(res);
-                    //        $('.select2').select2({allowClear:true});
-                    // var province_id = $('#province_id').val();
-                    $(".select21").trigger("chosen:updated");
-                    //  $('.select21').chosen({allow_single_deselect:true});
-                    getProductAttribute();
-                }
-            });
-        }
 
 
-        function getProductAttribute() {
-            var productCatID = 0;
-            $('#serial_number_div').hide();
-            $('#is_serial_require').val('');
-            $.ajax({
-                // dataType: 'json',
-                type: 'get',
-                url: "{{ route('product.ajax_product_by_product_category') }}?product_cat_id=" + productCatID + "&selected_id=",
-                success: function (res) {
-                    $('#product_attribute').html(res);
-                    $('#product_id').chosen({
-                        allow_single_deselect: true
-                    });
-                    // var province_id = $('#province_id').val();
-                    // validator.reload();
-                }
-            });
 
-
-            $.ajax({
-                dataType: 'json',
-                type: 'get',
-                url: "{{ route('product.get_product_cat_detail') }}?id=" + productCatID + "&selected_id=",
-                success: function (res) {
-                    if (res.sn_require == 1) {
-                        $('#serial_number_div').show();
-                        $('#is_serial_require').val('yes');
-                    } else {
-                        $('#serial_number_div').hide();
-                        $('#is_serial_require').val('');
-                    }
-                    // $('#serial_number_div')
-
-                }
-            });
-        }
 
 
         jQuery(function ($) {
-
-            getProductAttribute();
-
             getProductList();
-
-
-            $(document).on('change', '#sub_category_id', function () {
-                $('#product_category_id').val('');
-                $('#product_id').val('');
-                $('#product_id').chosen({
-                    allow_single_deselect: true
-                });
-                getProductCategories();
-            });
-
-            $(document).on('change', '#product_category_id', function () {
-                $('#product_id').val('');
-                $('#product_id').chosen({
-                    allow_single_deselect: true
-                });
-                getProductAttribute();
-            });
-
-
-            $(document).on('change', '#serial_number_file', function () {
-                readSNFile();
-            });
-
-            // project_change($('#project_id'));
-
-            $('#is_invoice_delivery').change(function () {
-                if ($(this).is(':checked')) {
-                    console.log('i am checked . Hello Pakistan');
-                    $('#po_loa_loi').val('');
-                    $('#po_loa_loi').attr('readonly', 'on');
-                } else {
-                    $('#po_loa_loi').removeAttr('readonly');
-                }
-            });
-
         });
-
-
-        //
     </script>
 @endsection

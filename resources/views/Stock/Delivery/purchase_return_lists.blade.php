@@ -1,30 +1,29 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 @section('title')
     Purchase
 @endsection
-
 @section('content')
-
-    <div class="page-content">
-        <div class="page-header" style="min-height:40px;">
-            <div class="" style="float: left;">
-                <h1>Purchase Return</h1>
-            </div>
-            <div class="" style="float: right;">
-                <a href="{{ route('stocks.unknow_purchase_return_view') }}" class="btn btn-xs btn-light bigger"><i
-                        class="ace-icon fa fa-undo bigger-120"></i> Unknow Return Sale </a>
-            </div>
-        </div>
-
-
+    <div class="pc-container">
+        <div class="pc-content p-3 ">
         <div class="row ">
-            <div class="col-12 col-lg-12" style="margin-top:20px;">
-                <div class="card radius-10 border-top border-0 border-4 border-danger">
+            <div class="col-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex flex-wrap gap-1">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">Purchase Return</h6>
+                                <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="{{ route('stocks.unknow_purchase_return_view') }}" class="btn btn-primary btn-sm"><i
+                                        class="ace-icon fa fa-floppy-o"></i> Unknow Return </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         @include('layout.alerts')
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered yajratable" id="yajra-table"
+                            <table class="table table-sm" id="yajra-table"
                                    style="width:100%"></table>
                         </div>
                     </div>
@@ -33,9 +32,7 @@
         </div>
         <!--end row-->
     </div>
-
-
-
+    </div>
     <!--- delete confirmation modal --->
     <div class="modal" tabindex="-1" role="dialog" id="deletePopup">
         <div class="modal-dialog" role="document">
@@ -67,10 +64,6 @@
     <!--- delete confirmation modal end --->
     <div id="order_back_search_modal_con"></div>
 @endsection
-
-
-
-
 @section('script')
     <script>
         var table;

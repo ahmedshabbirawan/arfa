@@ -1,19 +1,15 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Supplier
 @endsection
 
 @section('content')
-    @include('supplier.form')
+    <div class="pc-container">
+        <div class="pc-content">
+            @include('supplier.form')
+        </div></div>
 @endsection
 
 @section('javascript')
-    <script>
-
-
-        $(document).ready(function () {
-            //   update_all_account_balance();
-        });
-    </script>
 @endsection

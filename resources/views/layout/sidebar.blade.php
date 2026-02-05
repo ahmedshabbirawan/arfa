@@ -3,7 +3,6 @@
     <div class="navbar-wrapper">
         <div class="m-header">
             <a href="../dashboard/index.html" class="b-brand text-primary">
-                <!-- ========   Change your logo from here   ============ -->
                 <img src="../assets/images/logo-white.svg" alt="logo image" class="logo-lg" />
                 <span class="badge bg-primary rounded-pill ms-2 theme-version">v3.1.0</span>
             </a>
@@ -13,7 +12,7 @@
             <div class="card-body">
                 <div class="nav-user-image">
                     <a data-bs-toggle="collapse" href="#navuserlink">
-                        <img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar rounded-circle" />
+{{--                        <img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar rounded-circle" />--}}
                     </a>
                 </div>
                 <div class="pc-user-collpsed collapse" id="navuserlink">
@@ -52,23 +51,6 @@
 
 
             <ul class="pc-navbar">
-
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
-            <span class="pc-micon">
-              <i class="ph-duotone ph-layout"></i>
-            </span>
-                        <span class="pc-mtext">Layouts</span>
-                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="../demo/layout-compact.html">Compact</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../demo/layout-horizontal.html">Horizontal</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../demo/layout-tab.html">Tab</a></li>
-                        <li class="pc-item"><a class="pc-link" href="../demo/layout-vertical.html">Vertical</a></li>
-                    </ul>
-                </li>
-
                 {{-- Dashboard --}}
                 <li class="pc-item {{ request()->is('dashboard*') ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class="pc-link">
@@ -123,6 +105,57 @@
                         @endcan
                     </ul>
                 </li>
+
+                <!--------------- Customer -------------------->
+                <li class="pc-item pc-hasmenu {{request()->is('customer*') ? 'active open' : '' }}">
+                    <a href="#" class="pc-link ">
+                        <span class="pc-micon"><i class="menu-icon fa fa-user"></i></span>
+                        <span class="pc-mtext">Customers</span>
+                        <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item {{request()->is('customer/list*') ? 'active' : '' }}">
+                            <a href="{{ route('customer.list') }}" class="pc-link" > List</a><b class="arrow"></b>
+                        </li>
+                        <li class="pc-item {{request()->is('customer/create*') ? 'active' : '' }}">
+                            <a href="{{ route('customer.create') }}" class="pc-link" > Add New</a><b class="arrow"></b>
+                        </li>
+                        @can('customer.read')
+
+                        @endcan
+                        @can('customer.create')
+
+                        @endcan
+                    </ul>
+                </li>
+                <!--------------- End Customer -------------------->
+
+                <!--------------- User Management-------------------->
+                <li class="pc-item pc-hasmenu  {{request()->is('usermanagement*') ? 'active open' : '' }}">
+                    <a href="#" class="pc-link">
+                        <span class="pc-micon"><i class="menu-icon fa fa-user"></i></span>
+                        <span class="pc-mtext">User Management</span>
+                        <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item {{request()->is('usermanagement/role*') ? 'active' : '' }}">
+                            <a href="{{route('usermanagement.role.list')}}" class="pc-link">  Roles </a> <b class="arrow"></b>
+                        </li>
+
+                        @can('permission.read')
+                            <li class="pc-item {{request()->is('usermanagement/permissions*') ? 'active' : '' }}">
+                                <a href="{{route('usermanagement.permission.list')}}" class="pc-link">  Permissions </a><b class="arrow"></b>
+                            </li>
+                        @endcan
+                        @can('user.read')
+                            <li class="pc-item {{request()->is('usermanagement/users*') ? 'active' : '' }}">
+                                <a href="{{route('usermanagement.user.list')}}" class="pc-link" >Users</a><b class="arrow"></b>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+                <!--------------- End User Management-------------------->
+
 
                 {{-- Sale --}}
                 <li class="pc-item pc-hasmenu {{ request()->is('sale/order/*') || request()->is('sale/sale-return/*') ? 'active open' : '' }}">
@@ -185,7 +218,7 @@
                 {{-- Reports --}}
                 <li class="pc-item pc-hasmenu {{ request()->is('reports*') ? 'active open' : '' }}">
                     <a href="#" class="pc-link">
-                        <span class="pc-micon"><i class="fa fa-bar-chart-o"></i></span>
+                        <span class="pc-micon"><i class="fa fa-chart-bar "></i></span>
                         <span class="pc-mtext">Reports</span>
                         <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
                     </a>

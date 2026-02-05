@@ -1,33 +1,35 @@
-@extends('layout.old__master')
+@extends('layout.master')
 <?php
 $title = 'Sale Report';
 ?>
 @section('title')
     {{ $title }}
 @endsection
-
+<style>
+    .td_divider {
+        background-color: lightslategray;
+        width: 5px;
+    }
+    .td_label {
+        width: 150px;
+    }
+</style>
 @section('content')
-    <div class="page-content">
-        <div class="page-header" style="min-height:40px;">
-            <div class="" style="float: left;">
-                <h1>{{ $title }}</h1>
-            </div>
-        </div>
-
-
+    <div class="pc-container">
+        <div class="pc-content">
         <div class="row">
             <div class="col-xs-12 col-sm-12 widget-container-col" id="widget-container-col-1">
-                <div class="widget-box" id="widget-box-1">
-                    <div class="widget-header widget-header-small">
-                        <h5 class="widget-title">Filters</h5>
-                        <div class="widget-toolbar">
-                            <a href="#" data-action="collapse">
-                                <i class="ace-icon fa fa-chevron-up"></i>
-                            </a>
+                <div class="card" id="widget-box-1">
+                    <div class="card-header">
+                        <div class="d-flex flex-wrap gap-1">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">Sales</h6>
+                                <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="widget-body">
+                    <div class="card-body">
                         <!---------->
                         <div class="widget-main">
                             <form name="filterForm">
@@ -35,7 +37,7 @@ $title = 'Sale Report';
                                     <div class="col-lg-3 col-sm-3">
                                         <label>Shops</label>
                                         <select name="shop_ids" id="shop_ids" data-placeholder="Select shops"
-                                                class="col-lg-12 chosen-multi-select" multiple>
+                                                class="col-lg-12 chosen-multi-select form-control" multiple>
                                             @foreach($shops as $shop_id => $shop_name)
                                                 <option value="{{ $shop_id }}">{{ $shop_name }}</option>
                                             @endforeach;
@@ -52,9 +54,7 @@ $title = 'Sale Report';
                                         <div class="input-group">
                                         <span class="input-group-addon">
                                         <i class="fa fa-calendar bigger-110"></i></span>
-                                            <div><input type="text" class="form-control" name="date_range"
-                                                        id="date_range" type="text" placeholder="Date To"
-                                                        placeholder="Date" autocomplete="off"></div>
+                                            <div><input type="text" class="form-control" name="date_range" id="date_range" type="text" placeholder="Date To" placeholder="Date" autocomplete="off"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -78,19 +78,7 @@ $title = 'Sale Report';
                 </div>
             </div>
         </div>
-
-
-        <style>
-            .td_divider {
-                background-color: lightslategray;
-                width: 5px;
-            }
-
-            .td_label {
-                width: 150px;
-            }
-        </style>
-        <div class="row ">
+        <div class="row">
             <div class="col-12 col-lg-12" style="margin-top:20px;">
                 <div class="card radius-10 border-top border-0 border-4 border-danger">
                     <div class="card-body">
@@ -126,7 +114,7 @@ $title = 'Sale Report';
             </div>
         </div>
         <!--end row-->
-
+        </div>
     </div>
 @endsection
 @section('script')
@@ -148,19 +136,21 @@ $title = 'Sale Report';
             //     allow_single_deselect: false
             // });
 
-            $(".chosen-multi-select").chosen({no_results_text: "Oops, nothing found!"});
+            // $(".chosen-multi-select").chosen({no_results_text: "Oops, nothing found!"});
 
+            $(".chosen-multi-select").select2();
+
+            /*
             $('#date_range').daterangepicker({
                 'applyClass': 'btn-sm btn-success',
                 'cancelClass': 'btn-sm btn-default',
-
                 locale: {
                     applyLabel: 'Apply',
                     cancelLabel: 'Cancel',
                     format: 'D/M/Y'
                 }
             });
-
+*/
 
             function initDataTableRecord() {
                 table = $('#yajra-table').DataTable({

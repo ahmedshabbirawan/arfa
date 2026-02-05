@@ -1,11 +1,7 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 <?php
-
 $title = 'Stock Report';
-
 ?>
-
 @section('title')
     {{ $title }}
 @endsection

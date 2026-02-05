@@ -1,44 +1,37 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 @section('title')
     Customers
 @endsection
 
 @section('content')
 
-    <div class="page-content">
-        <div class="page-header" style="min-height:40px;">
-            <div class="" style="float: left;">
-                <h1>Customers</h1>
-            </div>
-            <div class="" style="float: right;">
-                <a href="{{ route('customer.create') }}" class="btn btn-xs btn-light bigger"><i
-                        class="ace-icon fa fa-floppy-o"></i> Add Record </a>
-            </div>
-        </div>
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="card">
 
 
-        <div class="row ">
-            <div class="col-12 col-lg-12" style="margin-top:20px;">
-                <div class="card radius-10 border-top border-0 border-4 border-danger">
-
-
-                    <div class="card-body">
-
-                        @include('layout.alerts')
-
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered yajratable" id="yajra-table"
-                                   style="width:100%"></table>
+                <div class="card-header pt-2 pb-2">
+                    <div class="d-flex flex-wrap gap-1">
+                        <div class="flex-grow-1">
+                            <h4 class="mb-1">Customers</h4>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <a href="{{ route('customer.create') }}" class="btn btn-sm btn-primary bigger"><i
+                                    class="ace-icon fa fa-floppy-o"></i> Add Record </a>
                         </div>
                     </div>
-
-
+                </div>
+                <div class="card-body">
+                    @include('layout.alerts')
+                    <div class="table-responsive">
+                        <table class="table table-sm" id="yajra-table"
+                               style="width:100%"></table>
+                    </div>
                 </div>
             </div>
-        </div>
         <!--end row-->
-    </div>
+    </div></div>
 
 
 

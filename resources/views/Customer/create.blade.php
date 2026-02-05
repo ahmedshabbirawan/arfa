@@ -1,17 +1,14 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Create Customer
 @endsection
 
 @section('content')
-
-    <div class="page-content">
-        <div class="page-header"><h1>Customer</h1></div>
-
+    <div class="pc-container">
+        <div class="pc-content">
         @include('Customer.form')
-
     </div>
-
+    </div>
 @endsection
 

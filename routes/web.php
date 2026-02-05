@@ -253,9 +253,9 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/create', [CustomerController::class, 'create'])->name('create'); //->middleware('permission:supplier.create');
         Route::post('/store', [CustomerController::class, 'store'])->name('store'); //->middleware('permission:supplier.create');
         Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('edit'); //->middleware('permission:supplier.update');
-        Route::post('/update/{id}', [CustomerController::class, 'update'])->name('update'); //->middleware('permission:supplier.update');
-        Route::get('/status/{id}', [CustomerController::class, 'status'])->name('status'); //->middleware('permission:supplier.status');
-        Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('delete'); //->middleware('permission:supplier.delete');
+        Route::post('/update/{id?}', [CustomerController::class, 'update'])->name('update'); //->middleware('permission:supplier.update');
+        Route::get('/status/{id?}', [CustomerController::class, 'status'])->name('status'); //->middleware('permission:supplier.status');
+        Route::get('/delete/{id?}', [CustomerController::class, 'destroy'])->name('delete'); //->middleware('permission:supplier.delete');
         Route::get('/view/{id}', [CustomerController::class, 'show'])->name('view'); //->middleware('permission:supplier.read');
         Route::get('/search', [CustomerController::class, 'search'])->name('search');
 
@@ -384,7 +384,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('dp/list', [StockDeliveryProductController::class, 'list'])->name('dp.list');
         Route::post('dp/save', [StockDeliveryProductController::class, 'save'])->name('dp.save');
         Route::get('dp/create', [StockDeliveryProductController::class, 'create'])->name('dp.create');
-        Route::get('dp/delete/{id}', [StockDeliveryProductController::class, 'destroy'])->name('dp.delete');
+        Route::get('dp/delete/{id?}', [StockDeliveryProductController::class, 'destroy'])->name('dp.delete');
         Route::get('dp/stock-item-by-product/{id}', [StockDeliveryProductController::class, 'getStockItemByProductID'])->name('dp.stock_item_by_product');
 
         Route::get('dp/download-sample', [StockDeliveryProductController::class, 'downloadSample'])->name('dp.download');
@@ -413,6 +413,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('shop_wise_product_stock/list', [ShopWiseProductStockController::class, 'shopWiseStock'])->name('shop_wise_product_stock.list');
     });
 
+    /*
     Route::group(['prefix' => 'Issuance/', 'as' => 'issuance.'], function () {
         Route::get('list', [IssuanceController::class, 'index'])->name('list');
         Route::get('view/{key}', [IssuanceController::class, 'detail'])->name('detail');
@@ -431,6 +432,7 @@ Route::middleware(['web', 'auth'])->group(function () {
             Route::get('list', [IssuanceController::class, 'getItemFromSession'])->name('list');
         });
     });
+    */
 
     Route::group(['prefix' => 'Return/', 'as' => 'return.'], function () {
         Route::get('list', [ReturnItemController::class, 'index'])->name('list');

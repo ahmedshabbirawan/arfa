@@ -1,54 +1,55 @@
-@extends('layout.old__master')
+@extends('layout.master')
 @section('title','User List')
 @section('Title','User Management')
 @section('URL',route("usermanagement.user.list"))
 @section('PageName','User')
 
 @section('content')
-    <div class="page-content">
-        <div class="page-header">
+
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="card">
+        <div class="card-header">
             <div class="" style="float: left;">
-                <h1>User<small><i class="ace-icon fa fa-angle-double-right"></i> List All </small></h1>
+                <h4>Users</h4>
             </div>
             <div class="" style="float: right;">
-                <a href="{{route('usermanagement.user.create')}}" class="btn btn-xs btn-light bigger"><i
+                <a href="{{route('usermanagement.user.create')}}" class="btn btn-sm btn-primary"><i
                         class="ace-icon fa fa-floppy-o"></i> Add Record </a>
             </div>
 
         </div><!-- /.page-header -->
-        @include('layout.alerts')
-        <div class="row">
-            <div class="col-xs-12">
-                <!-- PAGE CONTENT BEGINS -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="table-responsive">
-                            <table id="simple-table" class="table table-bordered table-hover datatable">
-                                <thead>
-                                <tr>
-                                    <th class="center">SR</th>
-                                    <th class="center">User Name</th>
-                                    <th class="center">Login Username</th>
-                                    <th class="center">Role Name</th>
-                                    <th class="center">Status</th>
-                                    <th class="center">Action</th>
-                                </tr>
-                                </thead>
 
-                                <tbody>
-                                <tr>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><!-- /.span -->
-                </div><!-- /.row -->
+        <div class="card-body">
+            @include('layout.alerts')
 
-                <!-- PAGE CONTENT ENDS -->
-            </div><!-- /.col -->
+                <table id="simple-table" class="table table-sm table-bordered table-hover datatable">
+                    <thead>
+                    <tr>
+                        <th class="center">SR</th>
+                        <th class="center">User Name</th>
+                        <th class="center">Login Username</th>
+                        <th class="center">Role Name</th>
+                        <th class="center">Status</th>
+                        <th class="center">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+
         </div>
-        <!-- /.row -->
-    </div><!-- /.page-content -->
+            </div>
+    </div>
+    </div>
+
+
+
     <div id="update_password_modal_con"></div>
     <div id="assign_role_modal_con"></div>
 @stop

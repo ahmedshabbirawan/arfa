@@ -1,11 +1,15 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Customer
 @endsection
 
 @section('content')
+    <div class="pc-container">
+        <div class="pc-content">
     @include('Customer.form')
+        </div>
+    </div>
 @endsection
 
 @section('javascript')

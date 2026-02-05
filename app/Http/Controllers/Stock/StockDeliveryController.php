@@ -71,8 +71,8 @@ class StockDeliveryController extends Controller
                         $statusIcon = 'fa fa-check-circle-o';
                     }
                     $action = '<div class="btn-group">';
-                    $action .= '<a href="' . route('stocks.delivery.detail', $row->id) . '" class="btn btn-xs btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
-                    $action .= '<a href="' . route('stocks.purchase_return_view', $row->id) . '" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Sale Return" ><i class="ace-icon fa fa-undo bigger-120"></i></a>';
+                    $action .= '<a href="' . route('stocks.delivery.detail', $row->id) . '" class="btn btn-sm btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
+                    $action .= '<a href="' . route('stocks.purchase_return_view', $row->id) . '" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Sale Return" ><i class="ace-icon fa fa-undo bigger-120"></i></a>';
                     $action .= '</div>';
                     return $action;
                 })->rawColumns(['status_label', 'rec_info', 'hand_info', 'action'])

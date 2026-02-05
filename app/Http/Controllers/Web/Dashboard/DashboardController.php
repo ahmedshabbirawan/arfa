@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Web\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
@@ -30,11 +30,14 @@ class DashboardController extends Controller
      */
     public function view(){
 
-        return view('dashboard.dashboard');
+        return view('Dashboard.dashboard');
     }
 
 
     function dashboardStats(){
+
+        dd('Not Use');
+
         $dayWiseReport      = array();
 
         $dayWiseReport[]    =   [
@@ -131,7 +134,7 @@ class DashboardController extends Controller
     function getDaysWiseReportByDay($day){
         $currentDateTime = date('Y-m-d').' 23:59:00';
 
-        $lastDay           = Carbon::parse($currentDateTime)->subDays($day)->format('Y-m-d');
+        $lastDay           = Carbon::parse()->subDays($day)->format('Y-m-d');
         $lastDayDateTime   = $lastDay.' 00:00:01';
         $betweenDates      = [$lastDayDateTime,$currentDateTime];
 

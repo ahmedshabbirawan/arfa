@@ -31,32 +31,19 @@ class SupplierController extends Controller
         $this->table        = 'supplier';
         $this->view         = 'supplier.';
     }
-
-
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        // echo Supplier::find(1)->getAttri(); exit;
-
-
         $productID = $request->get('product_id');
-
         if($request->ajax()){
                 $results = Supplier::select()->orderBy('id','ASC');
-// ->whereRelation('deliveries.deliveryProduct', 'product_id',3)
+                // ->whereRelation('deliveries.deliveryProduct', 'product_id',3)
                if($productID != ''){
-                   $results =  $results->whereRelation('deliveries.deliveryProduct', 'product_id',$productID);    
+                   $results =  $results->whereRelation('deliveries.deliveryProduct', 'product_id',$productID);
                }
-
-                
-
-
-
                 return Datatables::of($results)
                 ->addColumn('city_name', function ($row) {
                         return optional($row->city)->name;
@@ -64,20 +51,20 @@ class SupplierController extends Controller
                 ->addColumn('action', function ($row) {
                         $statusIcon = 'fa fa-ban';
                         if($row->status == 1){
-                            $statusIcon = 'fa fa-check-circle-o';
+                            $statusIcon = 'fa fa-check-circle';
                         }
                         $action = '<div class="btn-group">';
                         if(auth()->user()->can('supplier.read')){
-                            $action .= '<a href="'.route('supplier.view', $row->id).'" class="btn btn-xs btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
+                            $action .= '<a href="'.route('supplier.view', $row->id).'" class="btn btn-sm btn-success" data-toggle="tooltip" title="Detail" ><i class="fa fa-eye"></i></a>';
                         }
                         if(auth()->user()->can('supplier.update')){
-                            $action .= '<a href="'.route('supplier.edit', $row->id).'" class="btn btn-xs btn-info"  data-toggle="tooltip" title="Edit" ><i class="ace-icon fa fa-pencil bigger-120"></i></a>';
+                            $action .= '<a href="'.route('supplier.edit', $row->id).'" class="btn btn-sm btn-info"  data-toggle="tooltip" title="Edit" ><i class="ace-icon fas fa-pencil-alt bigger-120"></i></a>';
                         }
                         if(auth()->user()->can('supplier.status')){
-                            $action .= '<a href="javascript:void(0);" onclick="changeStatus('.$row->id.');" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Change Status" ><i class="ace-icon '.$statusIcon.' bigger-120"></i></a>';
+                            $action .= '<a href="javascript:void(0);" onclick="changeStatus('.$row->id.');" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Change Status" ><i class="ace-icon '.$statusIcon.' bigger-120"></i></a>';
                         }
                         if(auth()->user()->can('supplier.delete')){
-                            $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash-o bigger-120"></i></a>';
+                            $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash bigger-120"></i></a>';
                         }
                         $action .= '</div>';
                         return $action;

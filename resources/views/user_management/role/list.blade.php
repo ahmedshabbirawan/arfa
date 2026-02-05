@@ -1,27 +1,28 @@
-@extends('layout.old__master')
+@extends('layout.master')
 @section('title','Role List')
 @section('Title','User Management')
 @section('URL',route("usermanagement.role.list"))
 @section('PageName','Roles')
 @section('content')
-    <div class="page-content">
-        <div class="page-header">
-            <h1>
-                Roles
-                <small>
-                    <i class="ace-icon fa fa-angle-double-right"></i>
-                    List All
-                </small>
-            </h1>
-            <a href="{{route('usermanagement.role.create')}}">
-                <button class="btn btn-primary" style="position:absolute;right:20px;top:15px;">Add New</button>
-            </a>
-        </div><!-- /.page-header -->
+
+    <div class="pc-container">
+        <div class="pc-content">
+
         @include('layout.alerts')
-        <div class="row">
-            <div class="col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-wrap gap-1">
+                    <div class="flex-grow-1">
+                        <h4 class="mb-1">Roles</h4>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="{{route('usermanagement.role.create')}}" class="btn btn-sm btn-primary" >Add New </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
-                    <table id="simple-table" class="table table-bordered table-hover datatable">
+                    <table id="simple-table" class="table table-sm table-bordered table-hover datatable">
                         <thead>
                         <tr>
                             <th class="center">SR</th>
@@ -37,10 +38,11 @@
                         </tbody>
                     </table>
                 </div>
-            </div><!-- /.col -->
+            </div>
         </div>
-        <!-- /.row -->
-    </div><!-- /.page-content -->
+
+    </div>
+    </div>
 @stop
 
 @section('script')

@@ -66,20 +66,12 @@
 .select2-container{
     display: initial;
 }
-
 </style>
-
         <form method="post" id="stock_item_form" action="" novalidate class="form-horizontal stock_item_form">
                 <input type="hidden" name="id" value="">
-
                 <div class="widget-main">
-
-
                     <div class="row" >
                         <!-- Parent Category -->
-                    
-
-
                         <!-- Parent Category -->
                         <div class="col-lg-4 col-sm-4">
                         <label class="" for="form-field-1"> Category : </label>
@@ -162,7 +154,7 @@
     <span class="input-group-addon">
     <label>
                           <input type="checkbox" class="" name="is_expiry_date" id="is_expiry_date" value="yes" checked="checked" >
-                          
+
                         </label>
                       </span>
     <input type="text"  class="form-control input_date"   name="warranty_date" id="warranty_date" placeholder="Date">
@@ -212,7 +204,7 @@
     <div class="tagging-js" data-tags-input-name="sn" id="input_zone"></div>
 
 <!-- <input type="text" required class="form-control" value="" name="serial_number" id="serial_number" data-provide="tag" placeholder="Serial Numbers"> -->
-    
+
 
 </div>
 </div>

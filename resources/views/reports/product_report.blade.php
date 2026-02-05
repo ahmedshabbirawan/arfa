@@ -1,9 +1,6 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 <?php
-
 $title = 'Product Report';
-
 ?>
 
 @section('title')
@@ -77,15 +74,13 @@ $title = 'Product Report';
 
 
 
-    <div class="page-content">
+    <div class="pc-container">
+        <div class="pc-content">
 
         <div class="page-header" style="min-height:40px;">
             <div class="" style="float: left;">
                 <h1>{{ $title }}</h1>
             </div>
-            {{-- <div class="" style="float: right;">
-            <a href="{{ route('Settings.project.create') }}" class="btn btn-xs btn-light bigger"><i class="ace-icon fa fa-floppy-o"></i> Add Record </a>
-        </div> --}}
         </div>
 
 
@@ -275,6 +270,7 @@ $title = 'Product Report';
         </div>
         <!--end row-->
 
+    </div>
     </div>
 @endsection
 @section('script')

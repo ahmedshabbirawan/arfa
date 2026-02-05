@@ -1,24 +1,15 @@
-@extends('layout.old__master')
-
+@extends('layout.master')
 @section('title')
-    Stock Exhange
+    Sale Return
 @endsection
-
 @section('content')
-
     <script>
-
         var productHTML = '<option value="">Select Product</option><?php foreach ($products as $pro) {
             echo '<option value="' . $pro->id . '" data-qty="' . optional($pro->productQtyShopWise)->qty . '" >' . $pro->name . '</option>';
         } ?>';
-
-
     </script>
-
     <style>
-
         /* Tagging Basic Style */
-
         .type-zone {
             border: 0 none;
             height: auto;
@@ -39,19 +30,12 @@
         .select2-container{
             display: initial;
         } */
-
     </style>
-
     <?php
     $purchase_date = date('Y-m-d');
     ?>
-
-
-
-    <div class="page-content">
-
-        <div class="space-6"></div>
-
+    <div class="pc-container">
+        <div class="pc-content">
         <form method="post" id="product_form" action="" novalidate class="form-horizontal product_form">
             @csrf
             <input type="hidden" name="id" value="">
@@ -137,7 +121,7 @@
             </div>
 
         </form>
-
+        </div>
     </div>
 
 @endsection
@@ -218,7 +202,7 @@
                                     text: 'OK',
                                     action: function () {
                                         $('#product_table').html('');
-                                        window.location = "{{ route('sale.order.list') }}";
+                                        window.location = "{{ route('sale.sale_return.list') }}";
                                     }
                                 }
                             }

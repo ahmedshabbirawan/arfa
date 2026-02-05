@@ -8,7 +8,7 @@
 
     <div class="page-content">
         <div class="page-header" style="min-height:40px;">
-            <div class="" style="float: left;">
+            <div class="" style="float: left;">Sale Report
                 <h1>Sales Board</h1>
             </div>
             <div class="" style="float: right;">
@@ -33,9 +33,6 @@
         </div>
         <!--end row-->
     </div>
-
-
-
     <!--- delete confirmation modal --->
     <div class="modal" tabindex="-1" role="dialog" id="deletePopup">
         <div class="modal-dialog" role="document">

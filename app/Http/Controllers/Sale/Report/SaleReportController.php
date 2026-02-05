@@ -23,9 +23,9 @@ class SaleReportController extends Controller{
             $groupBy    = $request->get('group_by');
             $shopIds    = $request->get('shop_ids');
             $dateRange  = $request->get('date_range');
-            $dateString = explode('-',$dateRange);
-            $startDate  = Carbon::createFromFormat('d/m/Y H:i:s',trim($dateString[0]).' 00:00:01' );
-            $endDate    = Carbon::createFromFormat('d/m/Y H:i:s',trim($dateString[1]).' 23:59:59' );
+            $dateArray = explode('-',$dateRange);
+            $startDate  = null; //is_array($dateArray)?Carbon::createFromFormat('d/m/Y H:i:s',trim($dateArray[0]).' 00:00:01' ):null;
+            $endDate    = null; // is_array($dateArray)?Carbon::createFromFormat('d/m/Y H:i:s',trim($dateArray[1]).' 23:59:59' ):null;
 
             $shopsName  = ($shopIds) ? Shop::WhereIn('id',$shopIds)->pluck('name')->implode(', ') : 'All';
 
@@ -33,21 +33,12 @@ class SaleReportController extends Controller{
                 if($shopIds){
                     $query->WhereIn('shop_id',$shopIds);
                 }
-                if($startDate && $endDate){
-                    $query->whereDate('created_at','>=',$startDate)->whereDate('created_at','<=',$endDate);
-                }
+//                if($startDate && $endDate){
+//                    $query->whereDate('created_at','>=',$startDate)->whereDate('created_at','<=',$endDate);
+//                }
             });
-
-            // total_price
-
             $totalPriceSum = $itemsQuery->sum('total_price');
             $itemCount = $itemsQuery->sum('item_count');
-// dd($totalPriceSum);
-        
-
-            // dd($shopsName);
-
-
             $items = $itemsQuery->get();
 
 
@@ -73,9 +64,9 @@ class SaleReportController extends Controller{
                 $action .= '<a href="'.route('sale.order.detail',$row->id).'" class="btn btn-xs btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
                 $action .= '<a href="'.route('sale.order.sale_return_view',$row->id).'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Sale Return" ><i class="ace-icon fa fa-undo bigger-120"></i></a>';
                 $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->sale_key.');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash-o bigger-120"></i></a>';
-                
-                // 
-                
+
+                //
+
                 $action .= '</div>';
                 return $action;
             })->rawColumns(['title','product_attribute','status_label','action'])
@@ -99,7 +90,7 @@ class SaleReportController extends Controller{
         }
     }
 
-      
+
 
 
     }

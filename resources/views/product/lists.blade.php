@@ -5,15 +5,9 @@
 @section('content')
     <div class="pc-container">
     <div class="pc-content">
-
         <?php
         $actionURL = route('simple_product.store');
         ?>
-            <!-------------------------------------------------------------------->
-
-
-
-
         <!-------------------------------------------------------------------->
         <div class="row ">
                 <div class="card pt-0 mt-0">

@@ -46,7 +46,7 @@ class StockDeliveryProductController extends Controller{
         $userID     = auth()->user()->id;
         $deliveryID = $request->get('stock_delivery_id');
 
-        
+
 
         if($deliveryID != ''){
             $results    = StockDeliveryProduct::with(['product'])->where('stock_delivery_id',$deliveryID)->get();
@@ -64,9 +64,9 @@ class StockDeliveryProductController extends Controller{
              })->addColumn('product_description', function ($row) {
                 return optional($row->product)->description;
              })->addColumn('product_category_name', function ($row) {
-                    return ''; 
+                    return '';
                     $cat =  optional($row->product)->categories_tree();
-                     return  $cat['category']['name'].' / '.$cat['sub_category']['name'].' / '.$cat['product_category']['name']; 
+                     return  $cat['category']['name'].' / '.$cat['sub_category']['name'].' / '.$cat['product_category']['name'];
              })->addColumn('attributes_tags', function ($row) {
                  return '';
              })->addColumn('shop_name', function ($row) {
@@ -87,8 +87,8 @@ class StockDeliveryProductController extends Controller{
                      // }
                      $action = '<div class="hidden-sm hidden-xs btn-group">';
                  //     $action .= '<a href="'.route('product.edit', $row->id).'" class="btn btn-xs btn-info"  data-toggle="tooltip" title="Edit" ><i class="ace-icon fa fa-pencil bigger-120"></i></a>';
-                     $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash-o bigger-120"></i></a>';
-                     
+                     $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash bigger-120"></i></a>';
+
                      $action .= '</div>';
                      return $action;
              })->rawColumns(['action','product_category_name','product_name','product_attribute','sn_tags'])
@@ -104,10 +104,10 @@ class StockDeliveryProductController extends Controller{
         return view('Stock.Delivery.stock_item_form',$data);
     }
 
-    
-   
- 
- 
+
+
+
+
     /* SAVE TEMP PRODUCT */
      function save(StockDeliveryProductFormRequest $request){
         $serialNumbers = $request->get('sn');
@@ -121,10 +121,10 @@ class StockDeliveryProductController extends Controller{
 
         //stock_items
          $subCatID      = $request->get('sub_cat_id');
-         $parentID      = optional(SubCategory::find($subCatID))->parentCategoryId;  // SubCategory::find($subCatID)->parentCategoryId;  // optional(SubCategory::find($subCatID))->parentCategoryId; 
+         $parentID      = optional(SubCategory::find($subCatID))->parentCategoryId;  // SubCategory::find($subCatID)->parentCategoryId;  // optional(SubCategory::find($subCatID))->parentCategoryId;
          $productCatID  = $request->get('product_cat_id');
          $productID     = $request->get('product_id');
-         
+
          $product = Product::find($productID);
 
          $uomID         = $product->uom_id;
@@ -132,9 +132,9 @@ class StockDeliveryProductController extends Controller{
         // $uomCode       = $request->get('uom_code');
          $qty           = $request->get('qty');
          $warranty_date = $request->get('warranty_date');
-         $unit_price    = $request->get('unit_price');        
+         $unit_price    = $request->get('unit_price');
          $expiry_date   = $request->get('expiry_date');
- 
+
       //   $data['stock_delivery_id'] = '0';
          $data['parent_cat_id'] = $parentID;
          $data['sub_cat_id'] = $subCatID;
@@ -152,7 +152,7 @@ class StockDeliveryProductController extends Controller{
          $data['status'] = 0;
 
          StockDeliveryProduct::create($data);
-         
+
          return response()->json(['status' => true, 'message' => 'Product added successfully!']);
      }
 
@@ -186,13 +186,13 @@ class StockDeliveryProductController extends Controller{
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record
-        $records = $csv->getRecords(); 
+        $records = $csv->getRecords();
         //         //load the CSV document from a file path
         // $csv = Reader::createFromPath($file, 'r');
         // $csv->setHeaderOffset(0);
 
         // $header = $csv->getHeader(); //returns the CSV header record
-        // $records = $csv->getRecords(); 
+        // $records = $csv->getRecords();
 
         $serialNumber = [];
         foreach($records as $rec){
@@ -234,7 +234,7 @@ class StockDeliveryProductController extends Controller{
             'return_qty'        => 'required',
             'order_item_price'  => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->errors()->first()],406);
         }
@@ -246,15 +246,15 @@ class StockDeliveryProductController extends Controller{
         $desc           = $request->get('description');
 
         $purchaseReturn = PurchaseReturn::create([
-            'supplier_id' => $purchase->supplier_id, 
-            'purchase_id' => $purchase->id, 
-          //  'shop_id', 
-          //  'total_amount', 
+            'supplier_id' => $purchase->supplier_id,
+            'purchase_id' => $purchase->id,
+          //  'shop_id',
+          //  'total_amount',
             'description' => $desc
         ]);
 
         $index          = 0;
-        $totalReturnPrice = 0;  
+        $totalReturnPrice = 0;
         foreach($items as $item){
             $returnQty = $returnsQty[$index];
                 if( ($returnQty < 1)){
@@ -268,16 +268,16 @@ class StockDeliveryProductController extends Controller{
             // ProductAvailable::where(['shop_id' => $shopID, 'product_id' => $saleOrder->product_id])->decrement('qty', $returnQty);
             ProductAvailable::manageStockByShopAndProductId($returnQty, StockAudit::STOCK_ACTION_MINUS,$saleOrder->product_id,$shopID, StockAudit::STOCK_OBJECT_TYPE_PURCHASE_RETURN, $purchaseReturn->id);
             PurchaseReturnItem::create([
-                'purchase_return_id' => $purchaseReturn->id , 
-                'product_id' => $saleOrder->product_id, 
-                'unit_price' => $saleOrder->unit_price, 
+                'purchase_return_id' => $purchaseReturn->id ,
+                'product_id' => $saleOrder->product_id,
+                'unit_price' => $saleOrder->unit_price,
                 'shop_id' => auth()->user()->shop_id,
                 'qty' => $returnQty
             ]);
 
 
             $totalReturnPrice =  $totalReturnPrice + ($returnQty * $saleOrder->unit_price);
-            
+
 
             $index++;
         }
@@ -288,7 +288,7 @@ class StockDeliveryProductController extends Controller{
         $purchaseItems      = StockDeliveryProduct::where('stock_delivery_id', $purchaseID)->get();
         $priceOfferTotal    = 0;
         $discountTotal      = 0;
-        $priceTotal         = 0; 
+        $priceTotal         = 0;
         foreach($purchaseItems as $purchaseItem){
             $priceOfferTotal = $priceOfferTotal + ( $purchaseItem->quantity *  $purchaseItem->offer_price );
             $discountTotal   = $discountTotal + ( $purchaseItem->quantity *  $purchaseItem->discount );
@@ -301,7 +301,7 @@ class StockDeliveryProductController extends Controller{
 
     }
 
-    // 
+    //
 
     function unknowPurchaseReturnView(Request $request){
         $data['suppliers']      = Supplier::all();
@@ -310,7 +310,7 @@ class StockDeliveryProductController extends Controller{
         return view('Stock.Delivery.unknow_purchase_return',$data);
     }
 
-    // 
+    //
 
     function unknowPurchaseReturnSave(Request $request){
         $validator = Validator::make($request->all(), [
@@ -318,7 +318,7 @@ class StockDeliveryProductController extends Controller{
             'product_ids'   => 'required',
             'return_qty'    => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->errors()->first()],406);
         }
@@ -331,13 +331,13 @@ class StockDeliveryProductController extends Controller{
         $itemDescArr     = $request->get('return_single_desc');
 
         $purchaseReturn = PurchaseReturn::create([
-            'supplier_id' => $supplierID, 
-            'purchase_id' => 0, 
+            'supplier_id' => $supplierID,
+            'purchase_id' => 0,
             'description' => $desc
         ]);
 
         $index              = 0;
-        $totalReturnPrice   = 0;  
+        $totalReturnPrice   = 0;
 
         if(is_array($productIDs)){
         foreach($productIDs as $item){
@@ -351,7 +351,7 @@ class StockDeliveryProductController extends Controller{
             $shopID =     $shopIDs[$index];
             $productID = $productIDs[$index];
             $itemDesc = $itemDescArr[$index];
-            
+
             // $saleOrder = StockDeliveryProduct::find($item);
             // $saleOrder->quantity = $saleOrder->quantity - $returnQty;
             // $saleOrder->save();
@@ -359,16 +359,16 @@ class StockDeliveryProductController extends Controller{
             ProductAvailable::manageStockByShopAndProductId($returnQty, StockAudit::STOCK_ACTION_MINUS,$productID, $shopID,StockAudit::STOCK_OBJECT_TYPE_PURCHASE_RETURN, $purchaseReturn->id);
             $product = Product::find($productID);
             PurchaseReturnItem::create([
-                'purchase_return_id' => $purchaseReturn->id , 
-                'product_id' => $productID, 
-                'unit_price' => $product->price, 
+                'purchase_return_id' => $purchaseReturn->id ,
+                'product_id' => $productID,
+                'unit_price' => $product->price,
                 'qty' => $returnQty,
                 'item_description' => $itemDesc
             ]);
 
 
             $totalReturnPrice =  $totalReturnPrice + ($returnQty * $product->price);
-            
+
 
             $index++;
         }
@@ -381,12 +381,12 @@ class StockDeliveryProductController extends Controller{
     }
 
 
-    
+
 
     function purchaseReturnList(Request $request){
         if($request->ajax()){
             $items      = PurchaseReturn::where(function($query) use ($request) {});
-            
+
             $items = $items->get();
             return Datatables::of($items)
             ->addColumn('title', function ($row) {
@@ -396,18 +396,18 @@ class StockDeliveryProductController extends Controller{
             })->addColumn('description', function ($row) {
                 return $row->description;
             })->addColumn('supplier_name', function ($row) {
-                return ($row->supplier_id)? optional(Supplier::find($row->supplier_id))->name : 'Local Supplier'; 
+                return ($row->supplier_id)? optional(Supplier::find($row->supplier_id))->name : 'Local Supplier';
             })
             ->addColumn('action', function ($row) {
                 $action = '<div class="hidden-sm hidden-xs btn-group">';
-                $action .= '<a href="'.route('stocks.purchase_return_detail',$row->id).'" class="btn btn-xs btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
+                $action .= '<a href="'.route('stocks.purchase_return_detail',$row->id).'" class="btn btn-sm btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
                 $action .= '</div>';
                 return $action;
             })->rawColumns(['title','product_attribute','status_label','action'])
             ->make(true);
         }else{
             return view('Stock.Delivery.purchase_return_lists');
-        }  
+        }
     }
 
 
@@ -421,5 +421,5 @@ class StockDeliveryProductController extends Controller{
 
 
 
-    
+
 }

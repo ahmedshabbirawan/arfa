@@ -34,72 +34,60 @@ if (isset($product)) {
                     <div class="widget-main">
 
 
-                        <div class="col-lg-12 col-sm-12">
-                            <label for="form-field-1"> Product Name: </label>
-                            <div class="">
+                        <div class="col-lg-12 col-sm-12 mb-3">
+                            <label for="name" class="form-label" > Product Name: </label>
                                 <input type="text" required
                                        class="form-control @error('name') is-invalid @enderror"
                                        value="{{old('name', (isset($product))? $product->name : '' )}}"
                                        name="name" id="name" placeholder="Name">
-                            </div>
                         </div>
 
-                        <div style="clear:both;"></div>
-                        <div class="space"></div>
-
-
-                        <div class="col-lg-12 col-sm-12">
-                            <label for="form-field-1"> Description/Specification: </label>
-                            <div class="">
-
-                                            <textarea name="description" id="description"
-                                                      class="form-control @error('description') is-invalid @enderror"
-                                                      id="form-field-8"
-                                                      placeholder="Description">{{old('description', (isset($product))? $product->description : '' ) }}</textarea>
-                            </div>
+                        <div class="col-lg-12 col-sm-12 mb-3">
+                            <label for="description" class="form-label"> Description/Specification: </label>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                              id="form-field-8" placeholder="Description">{{old('description', (isset($product))? $product->description : '' ) }}</textarea>
                         </div>
-
-
-                        <div style="clear:both;"></div>
-
-
-                        <div style="clear:both;"></div>
-
-
-                        <div class="col-lg-4 col-sm-4">
-                            <label class="" for="form-field-1"> UOM</label>
-                            <div class="">
+                        <!----------------------------------->
+                        <div class="row mb-3">
+                            <div class="col-lg-4 col-sm-4">
+                                <label class="form-label" for="price"> Sale Price:</label>
+                                    <input type="text"
+                                           class="col-xs-10 col-sm-5 form-control @error('price') is-invalid @enderror"
+                                           value="{{ old('price',(isset($product->price))? $product->price : '') }}"
+                                           name="price" id="price" placeholder="Price">
+                            </div>
+                            <div class="col-lg-4 col-sm-4">
+                                <label class="form-label" for="form-field-1"> UOM</label>
                                 <select name="uom_id" class="col-xs-10 col-sm-5 form-control">
                                     @foreach($uoms as $id => $name)
                                         <option value="{{ $id }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-lg-4 col-sm-4">
+                                <label class="form-label" for="form-field-1"> Status </label>
+                                {{ \App\Util\Form::statusSelect(old('status')) }}
+                            </div>
+                            <div class="col-lg-2 col-sm-4">
 
                             </div>
                         </div>
+                        <!----------------------------------->
 
 
                         <div class="col-lg-4">
                             <label style="font-size:11px;">Product Image</label>
-                            <input type="file" name="product_image" id="file_2"/>
+                            <input type="file" class="form-control" name="product_image" id="file_2"/>
                         </div>
 
                         <div class="col-lg-4 col-sm-4">
-                            <label class="" for="form-field-1"> Sale Price:</label>
-                            <div class="">
-                                <input type="text"
-                                       class="col-xs-10 col-sm-5 form-control @error('price') is-invalid @enderror"
-                                       value="{{ old('price',(isset($product->price))? $product->price : '') }}"
-                                       name="price" id="price" placeholder="Price">
-                            </div>
+
                         </div>
 
 
                         <div class="col-lg-4 col-sm-4">
-                            <label class="" for="form-field-1"> Status </label>
-                            <div class="">
-                                {{ \App\Util\Form::statusSelect(old('status')) }}
-                            </div>
+
+
                         </div>
 
 

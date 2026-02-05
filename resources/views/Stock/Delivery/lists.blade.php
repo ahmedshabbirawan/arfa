@@ -1,4 +1,4 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Stock Deliveries
@@ -6,38 +6,35 @@
 
 @section('content')
 
-    <div class="page-content">
-        <div class="page-header" style="min-height:40px;">
-            <div class="" style="float: left;">
-                <h1>Purchases</h1>
-            </div>
-            <div class="" style="float: right;">
-                <a href="{{ route('stocks.simple.delivery.create') }}" class="btn btn-xs btn-light bigger"><i
-                        class="ace-icon fa fa-floppy-o"></i> Add Record </a>
-            </div>
-        </div>
-
-
-        <div class="row ">
-            <div class="col-12 col-lg-12" style="margin-top:20px;">
-                <div class="card radius-10 border-top border-0 border-4 border-danger">
-
-
+    <div class="pc-container">
+        <div class="pc-content">
+        <div class="row" >
+            <div class="col-12 col-lg-12" >
+                <div class="card">
+                    <div class="card-header pt-2 pb-2">
+                        <div class="d-flex flex-wrap gap-1">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">Purchases</h6>
+                                <p class="text-muted text-sm mb-0">DM on <a href="#" class="text-primary">@williambond</a></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="{{ route('stocks.simple.delivery.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="ace-icon fa fa-floppy-o"></i> Add Record </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-
                         @include('layout.alerts')
-
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered yajratable" id="yajra-table"
+                            <table class="table table-sm" id="yajra-table"
                                    style="width:100%"></table>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
         <!--end row-->
+    </div>
     </div>
 
 

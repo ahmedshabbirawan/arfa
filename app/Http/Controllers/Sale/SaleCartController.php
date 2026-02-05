@@ -295,7 +295,7 @@ class SaleCartController extends Controller{
         $term = $request->get('term');
 
         $data = ProductAvailable::
-        select('*',DB::raw('sum(qty) as total_qty'))
+        select('product_id',DB::raw('sum(qty) as total_qty'))
         ->with(['product','shop:id,name'])
         ->whereHas('product', function($q) use ($term){
             $q->where('name','like','%'.$term.'%');

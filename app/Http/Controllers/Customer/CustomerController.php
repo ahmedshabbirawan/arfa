@@ -51,10 +51,10 @@ class CustomerController extends Controller{
                 $results = Customer::select(); //->orderBy('id','ASC');
 // ->whereRelation('deliveries.deliveryProduct', 'product_id',3)
             //    if($productID != ''){
-            //        $results =  $results->whereRelation('deliveries.deliveryProduct', 'product_id',$productID);    
+            //        $results =  $results->whereRelation('deliveries.deliveryProduct', 'product_id',$productID);
             //    }
 
-                
+
 
 
 
@@ -65,20 +65,20 @@ class CustomerController extends Controller{
                 ->addColumn('action', function ($row) {
                         $statusIcon = 'fa fa-ban';
                         if($row->status == 1){
-                            $statusIcon = 'fa fa-check-circle-o';
+                            $statusIcon = 'fa fa-check-circle';
                         }
                         $action = '<div class="btn-group">';
                       //  if(auth()->user()->can('customer.read')){
-                            $action .= '<a href="'.route('customer.view', $row->id).'" class="btn btn-xs btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
+                            $action .= '<a href="'.route('customer.view', $row->id).'" class="btn btn-sm btn-success" data-toggle="tooltip" title="Detail" ><i class="ace-icon fa fa-eye bigger-120"></i></a>';
                      //   }
                      //   if(auth()->user()->can('customer.update')){
-                            $action .= '<a href="'.route('customer.edit', $row->id).'" class="btn btn-xs btn-info"  data-toggle="tooltip" title="Edit" ><i class="ace-icon fa fa-pencil bigger-120"></i></a>';
+                            $action .= '<a href="'.route('customer.edit', $row->id).'" class="btn btn-sm btn-info"  data-toggle="tooltip" title="Edit" ><i class="ace-icon fa fa-pencil-alt bigger-120"></i></a>';
                      //   }
                     //    if(auth()->user()->can('customer.status')){
-                            $action .= '<a href="javascript:void(0);" onclick="changeStatus('.$row->id.');" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Change Status" ><i class="ace-icon '.$statusIcon.' bigger-120"></i></a>';
+                            $action .= '<a href="javascript:void(0);" onclick="changeStatus('.$row->id.');" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Change Status" ><i class="ace-icon '.$statusIcon.' bigger-120"></i></a>';
                      //   }
                     //    if(auth()->user()->can('customer.delete')){
-                            $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash-o bigger-120"></i></a>';
+                            $action .= '<a href="javascript:void(0);" onclick="deleteConfirmation('.$row->id.');" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete" ><i class="ace-icon fa fa-trash bigger-120"></i></a>';
                     //    }
                         $action .= '</div>';
                         return $action;
@@ -126,7 +126,7 @@ class CustomerController extends Controller{
             }else{
                 return redirect(route('customer.list'))->with('success',$this->name.' added successful!');
             }
-            
+
         }catch(\Exception $e){
             DB::rollBack();
             if($request->ajax()){
@@ -134,7 +134,7 @@ class CustomerController extends Controller{
             }else{
                 return redirect()->back()->withInput($request->all())->with('error','Error.Please Contact Support');
             }
-            
+
         }
     }
 
@@ -292,7 +292,7 @@ class CustomerController extends Controller{
         ]);
     }
 
-    function getCustomerStats($customerId){    
+    function getCustomerStats($customerId){
         // $pay = CustomerPayment::where('customer_id',$customerId)->where('type','cash')->sum('amount');
         // $due = CustomerPayment::where('customer_id',$customerId)->where('type','late_payment')->sum('amount');
         $orders = SaleOrder::where('customer_id',$customerId)->count();
