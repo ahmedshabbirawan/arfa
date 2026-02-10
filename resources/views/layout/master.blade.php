@@ -483,7 +483,9 @@
                     <span>Add account</span>
                   </span>
                                         </a>
-                                        <a href="#" class="dropdown-item">
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();" class="dropdown-item">
                   <span class="d-flex align-items-center">
                     <i class="ph-duotone ph-power"></i>
                     <span>Logout</span>
@@ -497,6 +499,11 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <div class="hidden">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 </header>
 <!-- [ Header ] end -->
