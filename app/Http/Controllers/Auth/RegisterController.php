@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -52,6 +52,15 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'user_name' => [
+                'required',
+                'string',
+                'max:255',
+                'alpha_dash', // Allows letters, numbers, dashes, and underscores
+                'unique:users,userName', // Ensures the username is unique in the 'users' table
+            ],
+
         ]);
     }
 
@@ -63,8 +72,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+//        dd($data);
         return User::create([
             'name' => $data['name'],
+            'userName' => $data['user_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
