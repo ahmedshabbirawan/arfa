@@ -1,4 +1,4 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Supplier Detail

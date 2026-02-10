@@ -194,6 +194,38 @@
                     </ul>
                 </li>
 
+
+                <!--------------- Shops -------------------->
+                <li class="{{request()->is('shop*') ? 'active open' : '' }}">
+                    <a href="#" class="dropdown-toggle ">
+                        <i class="menu-icon fa fa-building"></i>
+                        <span class="menu-text">
+                        Shops / Branches
+                    </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="{{request()->is('shop/list*') ? 'active' : '' }}">
+                            <a href="{{ route('shop.list') }}"><i class="menu-icon fa fa-caret-right"></i>List</a><b class="arrow"></b>
+                        </li>
+                        <li class="{{request()->is('shop/create*') ? 'active' : '' }}">
+                            <a href="{{ route('shop.create') }}"><i class="menu-icon fa fa-caret-right"></i>Add New</a><b class="arrow"></b>
+                        </li>
+                        @can('shop.read')
+
+                        @endcan
+                        @can('shop.create')
+
+                        @endcan
+                    </ul>
+                </li>
+                <!--------------- End Customer -------------------->
+
+
+
                 {{-- Suppliers --}}
                 <li class="pc-item pc-hasmenu {{ request()->is('supplier*') ? 'active open' : '' }}">
                     <a href="#" class="pc-link">

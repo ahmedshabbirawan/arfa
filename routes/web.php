@@ -266,15 +266,15 @@ Route::middleware(['web', 'auth'])->group(function () {
 
 
     Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
-        Route::get('/list', [ShopController::class, 'index'])->name('list')->middleware('permission:supplier.read');
-        Route::get('/create', [ShopController::class, 'create'])->name('create')->middleware('permission:supplier.create');
-        Route::post('/store', [ShopController::class, 'store'])->name('store')->middleware('permission:supplier.create');
-        Route::get('/edit/{id}', [ShopController::class, 'edit'])->name('edit')->middleware('permission:supplier.update');
-        Route::post('/update/{id}', [ShopController::class, 'update'])->name('update')->middleware('permission:supplier.update');
-        Route::get('/status/{id}', [ShopController::class, 'status'])->name('status')->middleware('permission:supplier.status');
-        Route::get('/delete/{id}', [ShopController::class, 'destroy'])->name('delete')->middleware('permission:supplier.delete');
-        Route::get('/view/{id}', [ShopController::class, 'show'])->name('view')->middleware('permission:supplier.read');
-        Route::post('/close_shop', [ShopController::class, 'close'])->name('close')->middleware('permission:supplier.create');
+        Route::get('/list', [ShopController::class, 'index'])->name('list'); //->middleware('permission:supplier.read');
+        Route::get('/create', [ShopController::class, 'create'])->name('create'); //->middleware('permission:supplier.create');
+        Route::post('/store', [ShopController::class, 'store'])->name('store'); //->middleware('permission:supplier.create');
+        Route::get('/edit/{id?}', [ShopController::class, 'edit'])->name('edit'); //->middleware('permission:supplier.update');
+        Route::post('/update/{id?}', [ShopController::class, 'update'])->name('update'); //->middleware('permission:supplier.update');
+        Route::get('/status/{id?}', [ShopController::class, 'status'])->name('status'); //->middleware('permission:supplier.status');
+        Route::get('/delete/{id?}', [ShopController::class, 'destroy'])->name('delete'); //->middleware('permission:supplier.delete');
+        Route::get('/view/{id?}', [ShopController::class, 'show'])->name('view'); //->middleware('permission:supplier.read');
+        Route::post('/close_shop', [ShopController::class, 'close'])->name('close'); //->middleware('permission:supplier.create');
     });
 
 
