@@ -99,6 +99,11 @@
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
             <ul class="list-unstyled">
+                <li class="pc-h-item pc-item">
+                    <a  onclick="pos_app.changeCurrentShopModal();" class="pc-link" href="javascript:void(0);">
+                        Shop : {{ (auth()->user()->shop)? optional(auth()->user()->shop)->name :'No Shop Select' }}
+                    </a>
+                </li>
                 <li class="dropdown pc-h-item">
                     <a
                         class="pc-head-link dropdown-toggle arrow-none me-0"
@@ -789,4 +794,6 @@
 @yield('javascript')
 
 <!-- [Body] end -->
+<div id="change_user_current_shop_modal_con"></div>
+<div id="add_product_modal_con"></div>
 </html>
