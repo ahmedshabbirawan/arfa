@@ -142,15 +142,17 @@
                             <a href="{{route('usermanagement.role.list')}}" class="pc-link">  Roles </a> <b class="arrow"></b>
                         </li>
 
-                        @can('permission.read')
+
                             <li class="pc-item {{request()->is('usermanagement/permissions*') ? 'active' : '' }}">
                                 <a href="{{route('usermanagement.permission.list')}}" class="pc-link">  Permissions </a><b class="arrow"></b>
                             </li>
+                        @can('permission.read')
                         @endcan
-                        @can('user.read')
+
                             <li class="pc-item {{request()->is('usermanagement/users*') ? 'active' : '' }}">
                                 <a href="{{route('usermanagement.user.list')}}" class="pc-link" >Users</a><b class="arrow"></b>
                             </li>
+                        @can('user.read')
                         @endcan
                     </ul>
                 </li>
@@ -196,13 +198,11 @@
 
 
                 <!--------------- Shops -------------------->
-                <li class="{{request()->is('shop*') ? 'active open' : '' }}">
-                    <a href="#" class="dropdown-toggle ">
-                        <i class="menu-icon fa fa-building"></i>
-                        <span class="menu-text">
-                        Shops / Branches
-                    </span>
-                        <b class="arrow fa fa-angle-down"></b>
+                <li class="pc-item pc-hasmenu {{request()->is('shop*') ? 'active open' : '' }}">
+                    <a href="#" class="pc-link">
+                        <span class="pc-micon"><i class="fas fa-cart-arrow-down"></i></span>
+                        <span class="pc-mtext">Shops / Branches</span>
+                        <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
                     </a>
 
                     <b class="arrow"></b>
@@ -234,10 +234,11 @@
                         <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-                        @can('supplier.read')
+
                             <li class="pc-item {{ request()->is('supplier/list*') ? 'active' : '' }}">
                                 <a href="{{ route('supplier.list') }}" class="pc-link">List</a>
                             </li>
+                        @can('supplier.read')
                         @endcan
                         @can('supplier.create')
                             <li class="pc-item {{ request()->is('supplier/create*') ? 'active' : '' }}">

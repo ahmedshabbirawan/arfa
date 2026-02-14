@@ -127,15 +127,15 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         //User
         Route::group(['prefix' => 'user/', 'as' => 'user.'], function () {
-            Route::get('list', [UserController::class, 'index'])->name('list')->middleware('permission:user.read');
-            Route::get('create', [UserController::class, 'create'])->name('create')->middleware('permission:user.create');
-            Route::post('store', [UserController::class, 'store'])->name('store')->middleware('permission:user.create');
-            Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit')->middleware('permission:user.update');
-            Route::post('update/{id}', [UserController::class, 'update'])->name('update')->middleware('permission:user.update');
-            Route::get('status/{id}', [UserController::class, 'status'])->name('status')->middleware('permission:user.status');
-            Route::get('delete/{id}', [UserController::class, 'destroy'])->name('delete')->middleware('permission:user.delete');
-            Route::get('change_password_modal_view/{id}', [UserController::class, 'changePasswordModalView'])->name('change_password_modal')->middleware('permission:user.update');
-            Route::post('save_password', [UserController::class, 'savePassword'])->name('save_password')->middleware('permission:user.update');
+            Route::get('list', [UserController::class, 'index'])->name('list'); //->middleware('permission:user.read');
+            Route::get('create', [UserController::class, 'create'])->name('create'); // ->middleware('permission:user.create');
+            Route::post('store', [UserController::class, 'store'])->name('store'); //->middleware('permission:user.create');
+            Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit'); //->middleware('permission:user.update');
+            Route::post('update/{id}', [UserController::class, 'update'])->name('update'); //->middleware('permission:user.update');
+            Route::get('status/{id}', [UserController::class, 'status'])->name('status'); //->middleware('permission:user.status');
+            Route::get('delete/{id}', [UserController::class, 'destroy'])->name('delete'); //->middleware('permission:user.delete');
+            Route::get('change_password_modal_view/{id}', [UserController::class, 'changePasswordModalView']); //->name('change_password_modal')->middleware('permission:user.update');
+            Route::post('save_password', [UserController::class, 'savePassword'])->name('save_password'); //->middleware('permission:user.update');
         });
 
         Route::group(['prefix' => 'user-role/', 'as' => 'user_role.'], function () {
@@ -237,14 +237,14 @@ Route::middleware(['web', 'auth'])->group(function () {
     });
 
     Route::group(['prefix' => 'supplier', 'as' => 'supplier.'], function () {
-        Route::get('/list', [SupplierController::class, 'index'])->name('list')->middleware('permission:supplier.read');
-        Route::get('/create', [SupplierController::class, 'create'])->name('create')->middleware('permission:supplier.create');
+        Route::get('/list', [SupplierController::class, 'index'])->name('list'); //->middleware('permission:supplier.read');
+        Route::get('/create', [SupplierController::class, 'create'])->name('create');// ->middleware('permission:supplier.create');
         Route::post('/store', [SupplierController::class, 'store'])->name('store')->middleware('permission:supplier.create');
         Route::get('/edit/{id?}', [SupplierController::class, 'edit'])->name('edit')->middleware('permission:supplier.update');
         Route::post('/update/{id?}', [SupplierController::class, 'update'])->name('update')->middleware('permission:supplier.update');
         Route::get('/status/{id?}', [SupplierController::class, 'status'])->name('status')->middleware('permission:supplier.status');
         Route::get('/delete/{id?}', [SupplierController::class, 'destroy'])->name('delete')->middleware('permission:supplier.delete');
-        Route::get('/view/{id?}', [SupplierController::class, 'show'])->name('view')->middleware('permission:supplier.read');
+        Route::get('/view/{id?}', [SupplierController::class, 'show'])->name('view');// ->middleware('permission:supplier.read');
     });
 
 
