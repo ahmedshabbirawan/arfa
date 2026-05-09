@@ -70,14 +70,9 @@ class RoleController extends Controller
         return view('user_management.role.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('UserManagement.Role.create');
+        return view('user_management.role.create');
     }
 
     /**
@@ -164,27 +159,15 @@ class RoleController extends Controller
     //     return redirect()->route('usermanagement.role.list')->with('success','Role has been updated successfully');
     // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
     public function permissions($id){
         $roleId = $id;
         $role = Role::where('id',$id)->first();
         // $permissions = Permission::all();
-
         // $collect = collect(Permission::get()->toArray());
         // $grouped = $collect->mapToGroups(function (array $item, int $key) {
         //     return [$item['name'] => $item];
         // });
-        // dd($grouped);
-
         $permissionsArr = [];
 
         foreach(Permission::all() as $per){
@@ -211,23 +194,11 @@ class RoleController extends Controller
             }elseif(strtolower(substr($per->name ,0,9))  == 'supplier.'){
                 $permissionsArr['supplier'][] = $per;
             }
-
-            // supplier
-            // stock_adjustment
-            // stock_exchange
-           // elseif(){
-
-            // }
             else{
                 $permissionsArr['z-other'][] = $per;
             }
         }
-
         $permissions = collect($permissionsArr)->sortKeys()->all();
-
-
-      //   dd($permissionsArr);
-
         $rolePermissions = DB::table('role_has_permissions')->where('role_id',$id)->pluck('permission_id')->toArray();
         return view('user_management.role.permission',compact('permissions','rolePermissions','roleId','role'));
     }

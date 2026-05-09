@@ -16,7 +16,6 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller{
 
-
     public function index(Request $request){
         if ($request->ajax()) {
             $data = User::with(['roles']);
@@ -67,13 +66,11 @@ class UserController extends Controller{
 
     }
 
-
     public function create(){
         $roles = Role::orderBy('name','asc')->get();
         $shops = Shop::orderBy('name','asc')->get()->pluck('name', 'id');
         return view('user_management.user.create',compact('roles','shops'));
     }
-
 
     public function store(Request $request){
 
@@ -142,7 +139,6 @@ class UserController extends Controller{
 
         }
     }
-
 
     public function status($id){
         try{
@@ -226,9 +222,6 @@ class UserController extends Controller{
         }
     }
 
-
-
-
     function changePasswordModalView($userID){
         return response()->json([
             'view' => View('user_management.user.change_password_modal',['userID' => $userID])->render(),
@@ -265,8 +258,4 @@ class UserController extends Controller{
         }
     }
 
-
-
 }
-
-// php artisan make:migration shops_admin_table

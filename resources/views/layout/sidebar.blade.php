@@ -2,9 +2,9 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="../dashboard/index.html" class="b-brand text-primary">
-                <img src="../assets/images/logo-white.svg" alt="logo image" class="logo-lg" />
-                <span class="badge bg-primary rounded-pill ms-2 theme-version">v3.1.0</span>
+            <a href="{{ url('/') }}" class="b-brand text-primary">
+                <img src="../assets/images/logo-white.svg" alt="{{ config('app.name') }}" class="logo-lg" />
+                <span class="badge bg-primary rounded-pill ms-2 theme-version">{{ config('app.env') }}</span>
             </a>
         </div>
 
@@ -204,15 +204,12 @@
                         <span class="pc-mtext">Shops / Branches</span>
                         <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
                     </a>
-
-                    <b class="arrow"></b>
-
-                    <ul class="submenu">
-                        <li class="{{request()->is('shop/list*') ? 'active' : '' }}">
-                            <a href="{{ route('shop.list') }}"><i class="menu-icon fa fa-caret-right"></i>List</a><b class="arrow"></b>
+                    <ul class="pc-submenu">
+                        <li class="pc-item {{request()->is('shop/list*') ? 'active' : '' }}">
+                            <a href="{{ route('shop.list') }}" class="pc-link">List</a>
                         </li>
-                        <li class="{{request()->is('shop/create*') ? 'active' : '' }}">
-                            <a href="{{ route('shop.create') }}"><i class="menu-icon fa fa-caret-right"></i>Add New</a><b class="arrow"></b>
+                        <li class="pc-item {{request()->is('shop/create*') ? 'active' : '' }}">
+                            <a href="{{ route('shop.create') }}" class="pc-link">Add New</a>
                         </li>
                         @can('shop.read')
 
@@ -234,7 +231,6 @@
                         <span class="pc-arrow"><i class="ti ti-chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-
                             <li class="pc-item {{ request()->is('supplier/list*') ? 'active' : '' }}">
                                 <a href="{{ route('supplier.list') }}" class="pc-link">List</a>
                             </li>

@@ -10,6 +10,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 */
 
 
+use App\Http\Controllers\Setting\TenantController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -65,6 +66,7 @@ use App\Http\Controllers\Report\ProductStockController;
 use App\Http\Controllers\Sale\Report\SaleReportController;
 use App\Http\Controllers\Product\SimpleProductController;
 use App\Models\StockItem;
+use App\Http\Controllers\User\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -181,6 +183,8 @@ Route::middleware(['web', 'auth'])->group(function () {
 
 
     Route::group(['prefix' => 'Settings', 'as' => 'Settings.'], function () {
+
+        Route::get('/', [TenantController::class,'settingEdit'])->name('tenant_setting'); //->middleware('permission:setting.read');
         Route::resource('warehouse', WarehouseController::class)->middleware('permission:warehouse.read');
         Route::resource('location', LocationController::class)->middleware('permission:warehouse.read');
         Route::resource('uom', UomController::class)->middleware('permission:warehouse.read');
@@ -532,6 +536,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('product_order_table', [ProductStockController::class, 'saleOrder'])->name('product_order_table');
         Route::get('product_purchase_table', [ProductStockController::class, 'purchase'])->name('product_purchase_table');
     });
+
+
+    Route::group(['prefix' => 'user-profile'], function () {
+        Route::get('/', [UserProfileController::class, 'profileView'])->name('user_profile_view');
+        Route::post('/password-update', [UserProfileController::class, 'passwordUpdate'])->name('user_profile_password_update');
+    });
+
+
 
 
     Route::group(['prefix' => 'report/', 'as' => 'report.'], function () {

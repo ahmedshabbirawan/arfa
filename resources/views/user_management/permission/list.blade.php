@@ -1,4 +1,4 @@
-@extends('layout.old__master')
+@extends('layout.master')
 @section('title','Permissions List')
 @section('Title','User Management')
 @section('URL',route("usermanagement.permission.list"))

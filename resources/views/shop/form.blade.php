@@ -1,170 +1,158 @@
 <div class="row ">
-    <div class="col-12 col-lg-12" style="margin-top:20px;">
-
-
+    <div class="col-12 col-lg-12">
         @include('layout.alerts')
+        <div class="card">
 
-        <div class="card radius-10 border-top border-0 border-4 border-danger">
 
 
-            <form method="post" action="{{ isset($shop) ? route('shop.update', $shop->id) : route('shop.store') }}"
-                  novalidate class="form-horizontal">
+            <form method="post"
+                  action="{{ isset($shop) ? route('shop.update', $shop->id) : route('shop.store') }}"
+                  novalidate>
                 @csrf
-                <input type="hidden" id="id" name="id" value="{{old('id', (isset($shop))? $shop->id : '' )}}">
-                <div class="row">
+                <input type="hidden" name="id"
+                       value="{{ old('id', isset($shop) ? $shop->id : '') }}">
 
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">{{ isset($shop) ? 'Update Shop' : 'Create Shop' }}</h4>
+                    </div>
 
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="widget-box">
-                            <div class="widget-header">
-                                <h4 class="widget-title">{{ isset($shop) ? 'Update' : 'Create' }}</h4>
-                            </div>
-                            <div class="widget-body" style="display: block;">
-                                <div class="widget-main">
+                    <div class="card-body">
+                        <div class="row">
 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Shop
-                                            Name </label>
-                                        <div class="col-sm-9">
-                                            <input type="text"
-                                                   class="col-xs-10 col-sm-5 form-control @error('name') is-invalid @enderror"
-                                                   value="{{old('name', (isset($shop))? $shop->name : '' )}}"
-                                                   name="name" id="name" placeholder="Name">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            NTN </label>
-                                        <div class="col-sm-9">
-                                            <input type="text"
-                                                   class="col-xs-10 col-sm-5 form-control @error('ntn') is-invalid @enderror"
-                                                   value="{{old('ntn' , (isset($shop))? $shop->ntn : '' ) }}" name="ntn"
-                                                   id="ntn" placeholder="NTN">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Shop
-                                            Manager </label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control" name="user_id">
-                                                <option value="" hidden selected>Choose Shop</option>
-                                                @foreach ($users as $user )
-                                                    <option value="{{$user->id}}" {{ (isset($shop) && $shop->id == $user->shop_id  )? 'selected'  : '' }} >{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <small class="" style="color:red">Only one user assign to one shop</small>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Address </label>
-                                        <div class="col-sm-9">
-                                            <textarea name="address" id="address"
-                                                      class="form-control @error('address') is-invalid @enderror"
-                                                      id="form-field-8"
-                                                      placeholder="Address">{{old('address', (isset($shop))? $shop->address : '' ) }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Country </label>
-                                        <div class="col-sm-9">
-                                            <select name="country_id" id="country_id"
-                                                    class="col-xs-10 col-sm-5 form-control">
-                                                    <?php foreach ($countries as $co_val => $co_title): ?>
-                                                <option value="<?=$co_val?>"><?= $co_title ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Province </label>
-                                        <div class="col-sm-9">
-                                            <select name="province_id" id="province_id"
-                                                    class="col-xs-10 col-sm-5 form-control">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            City </label>
-                                        <div class="col-sm-9">
-                                            <select name="city_id" id="city_id" class="col-xs-10 col-sm-5 form-control">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Email </label>
-                                        <div class="col-sm-9">
-                                            <input type="text"
-                                                   class="col-xs-10 col-sm-5 form-control @error('email') is-invalid @enderror"
-                                                   value="{{old('email',(isset($shop))? $shop->email : '' ) }}"
-                                                   name="email" id="email" placeholder="email">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Phone </label>
-                                        <div class="col-sm-9">
-                                            <input type="text"
-                                                   class="col-xs-10 col-sm-5 form-control @error('phone') is-invalid @enderror"
-                                                   value="{{old('phone',(isset($shop))? $shop->phone : '' )}}"
-                                                   name="phone" id="phone" placeholder="phone">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Fax </label>
-                                        <div class="col-sm-9">
-                                            <input type="text"
-                                                   class="col-xs-10 col-sm-5 form-control @error('fax') is-invalid @enderror"
-                                                   value="{{old('fax',(isset($shop))? $shop->fax : '' )}}" name="fax"
-                                                   id="fax" placeholder="fax">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
-                                            Status </label>
-                                        <div class="col-sm-9">
-                                            {{ \App\Util\Form::statusSelect(old('status')) }}
-                                        </div>
-                                    </div>
+                            {{-- Shop Name --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Shop Name</label>
+                                    <input type="text"
+                                           name="name"
+                                           class="form-control @error('name') is-invalid @enderror"
+                                           value="{{ old('name', isset($shop) ? $shop->name : '') }}"
+                                           placeholder="Shop Name">
                                 </div>
                             </div>
-                            <div class="widget-footer">
-                                <div class="clearfix form-actions" style="margin-bottom:0px;">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button class="btn btn-info" type="submit">
-                                            <i class="ace-icon fa fa-check bigger-110"></i>
-                                            Submit
-                                        </button>
 
-                                        &nbsp; &nbsp; &nbsp;
-                                        <button class="btn" type="reset">
-                                            <i class="ace-icon fa fa-undo bigger-110"></i>
-                                            Reset
-                                        </button>
-                                    </div>
+                            {{-- NTN --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">NTN</label>
+                                    <input type="text"
+                                           name="ntn"
+                                           class="form-control @error('ntn') is-invalid @enderror"
+                                           value="{{ old('ntn', isset($shop) ? $shop->ntn : '') }}"
+                                           placeholder="NTN">
+                                </div>
+                            </div>
+
+                            {{-- Shop Manager --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Shop Manager</label>
+                                    <select class="form-select" name="user_id">
+                                        <option value="" hidden>Choose Manager</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}"
+                                                {{ (isset($shop) && $shop->user_id == $user->id) ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-danger">Only one user assign to one shop</small>
+                                </div>
+                            </div>
+
+                            {{-- Address --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Address</label>
+                                    <textarea name="address"
+                                              class="form-control @error('address') is-invalid @enderror"
+                                              rows="2"
+                                              placeholder="Address">{{ old('address', isset($shop) ? $shop->address : '') }}</textarea>
+                                </div>
+                            </div>
+
+                            {{-- Country --}}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Country</label>
+                                    <select name="country_id" id="country_id" class="form-select">
+                                        @foreach ($countries as $co_val => $co_title)
+                                            <option value="{{ $co_val }}">
+                                                {{ $co_title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            {{-- Province --}}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Province</label>
+                                    <select name="province_id" id="province_id" class="form-select"></select>
+                                </div>
+                            </div>
+
+                            {{-- City --}}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">City</label>
+                                    <select name="city_id" id="city_id" class="form-select"></select>
+                                </div>
+                            </div>
+
+                            {{-- Email --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email"
+                                           name="email"
+                                           class="form-control @error('email') is-invalid @enderror"
+                                           value="{{ old('email', isset($shop) ? $shop->email : '') }}"
+                                           placeholder="Email">
+                                </div>
+                            </div>
+
+                            {{-- Phone --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text"
+                                           name="phone"
+                                           class="form-control @error('phone') is-invalid @enderror"
+                                           value="{{ old('phone', isset($shop) ? $shop->phone : '') }}"
+                                           placeholder="Phone">
+                                </div>
+                            </div>
+
+                            {{-- Fax --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Fax</label>
+                                    <input type="text"
+                                           name="fax"
+                                           class="form-control @error('fax') is-invalid @enderror"
+                                           value="{{ old('fax', isset($shop) ? $shop->fax : '') }}"
+                                           placeholder="Fax">
+                                </div>
+                            </div>
+
+                            {{-- Status --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    {!! \App\Util\Form::statusSelect(old('status', isset($shop) ? $shop->status : '')) !!}
                                 </div>
                             </div>
 
                         </div>
-                    </div><!-- /.span -->
+                    </div>
+
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary" type="reset">Reset</button>
+                    </div>
                 </div>
             </form>
 

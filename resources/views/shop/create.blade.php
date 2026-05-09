@@ -1,4 +1,4 @@
-@extends('layout.old__master')
+@extends('layout.master')
 
 @section('title')
     Create Shop / Branch
@@ -6,11 +6,12 @@
 
 @section('content')
 
-    <div class="page-content">
-        <div class="page-header"><h1>Shop / Branch</h1></div>
 
+    <div class="pc-container">
+        <div class="pc-content">
         @include('shop.form')
 
+        </div>
     </div>
 
 @endsection

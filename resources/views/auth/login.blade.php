@@ -26,7 +26,7 @@
                 @endif
 
             <div class="mb-3">
-                <input  class="form-control @error('userName') is-invalid @enderror" name="userName" value="{{ old('userName') }}" id="userName" placeholder="Email Address" />
+                <input  class="form-control @error('userName') is-invalid @enderror" name="userName" value="{{ old('userName') }}" id="userName" placeholder="Username" />
                 @error('userName')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
